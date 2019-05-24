@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { getPokemons } from '../store/pokemon/actions';
 import { IPokemonState } from '../interfaces/pokemons.interface';
-import PokemonContainer from './pokemon/PokemonContainer';
+import PokemonCard from './pokemon/PokemonCard';
 
 
 export interface IAppProps {
@@ -25,11 +25,12 @@ class PokemonList extends React.Component<IAppProps, IAppState> {
 
   public render() {
     const { pokemons } = this.props;
-    const pokemonList = pokemons.results.map(pok => <PokemonContainer key={pok.name} pokemon={pok} />)
-    console.log(this.props);
+    const pokemonList = pokemons.results.map(pok => <PokemonCard key={pok.name} pokemon={pok} />)
     return (
-      <div>
-        {pokemonList}
+      <div className="container pokemon-list">
+        <div className="row">
+          {pokemonList}
+        </div>
       </div>
     );
   }
