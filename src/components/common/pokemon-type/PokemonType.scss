@@ -1,6 +1,7 @@
 .type-label {
   width: 66px;
-  margin-bottom: 4px;
+  min-width: 66px;
+  margin: 0 4px 4px 4px;
   background: #dbdbdb;
   border-radius: 4px;
   color: #fff;

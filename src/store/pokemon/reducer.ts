@@ -16,13 +16,15 @@ const INITIAL_STATE = {
 
 const socketReducer: Reducer<IPokemonState, IPokemonAction> = (state = INITIAL_STATE, action) => {
   const { payload } = action;
-  console.log(payload);
+
   switch (action.type) {
     case LOAD_POKEMONS:
       return {
         ...state,
         results: payload.results,
         count: payload.count,
+        offset: payload.offset,
+        limit: payload.limit,
       }
     default:
       return state;

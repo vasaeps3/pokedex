@@ -1,0 +1,15 @@
+.pokedex-table {
+  &-row {
+    display: flex;
+    padding: .3rem;
+    border-top: 1px solid #dee2e6;
+    align-items: center;
+  }
+  &-cell {
+    padding: 0 .5rem;
+    &:first-child {
+      width: 80px;
+      text-align: right;
+    }
+  }
+}

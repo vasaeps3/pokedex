@@ -6,6 +6,7 @@ interface IBase {
 }
 
 export interface IPokemon extends IBase {
+  id: number;
   sprites: {
     back_default: string;
     back_female: string;
@@ -17,7 +18,37 @@ export interface IPokemon extends IBase {
     front_shiny_femaly: string;
   };
   types: ITypePokemon[];
+  stats: IStatsPokemon[];
+  abilities: IAbilityPokemon[];
+  species: {
+    name: string;
+    url: string;
+    title: string;
+  }
+  height: number;
+  weight: number;
 }
+
+export interface IAbilityPokemon {
+  is_hidden: boolean;
+  slot: number;
+  title: string;
+  ability: {
+    url: string;
+    name: TypeStatsPokemon;
+  };
+}
+
+export interface IStatsPokemon {
+  base_stat: number;
+  effort: number;
+  stat: {
+    url: string;
+    name: TypeStatsPokemon;
+  };
+}
+
+type TypeStatsPokemon = 'speed' | 'special-defense' | 'special-attack' | 'defense' | 'attack' | 'hp';
 
 export interface ITypePokemon {
   slot: number;

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getPokemons } from '../store/pokemon/actions';
 import { IPokemonState } from '../interfaces/pokemons.interface';
 import PokemonCard from './pokemon/PokemonCard';
+import Pagination from './common/pagination/Pagination';
 
 
 export interface IAppProps {
@@ -25,9 +26,11 @@ class PokemonList extends React.Component<IAppProps, IAppState> {
 
   public render() {
     const { pokemons } = this.props;
-    const pokemonList = pokemons.results.map(pok => <PokemonCard key={pok.name} pokemon={pok} />)
+    console.log(this.props);
+    const pokemonList = pokemons.results.map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon} />)
     return (
       <div className="container pokemon-list">
+        <Pagination count={pokemons.count}></Pagination>
         <div className="row">
           {pokemonList}
         </div>

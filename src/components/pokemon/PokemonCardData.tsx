@@ -1,26 +1,62 @@
 import React, { FunctionComponent } from 'react';
-import { Table } from 'react-bootstrap';
 
-import { PokemonType } from './PokemonType';
+import { PokemonType } from '../common/pokemon-type/PokemonType';
 import { IPokemon } from '../../interfaces/pokemons.interface';
+import PokedexTable from '../common/pokedex-table/PokedexTable';
+import PokedexTableRow from '../common/pokedex-table/PokedexTableRow';
+import PokedexTableCell from '../common/pokedex-table/PokedexTableCell';
+import { PokemonAbility } from '../common/pokemon-ability/PokemonAbility';
+import PokemonWeight from './PokemonWeight';
+import PokemonHeight from './PokemonHeight';
+import { toMultipleSymbol } from '../../utils/helper';
 
 
 export const PokemonCardData: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => {
   return (
-    <div className="pokemon-card-data">
+    <div className="pokemon-card-section">
       <h5>Pokédex data</h5>
-      <Table bordered={false} size="sm">
-        <tbody>
-          <tr>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
-          <tr>
-            <td>Type</td>
-            <td>{pokemon.types.map(t => <PokemonType type={t.type} />)}</td>
-          </tr>
-        </tbody>
-      </Table>
+      <PokedexTable>
+        <PokedexTableRow>
+          <PokedexTableCell>Name</PokedexTableCell>
+          <PokedexTableCell>
+            <div className="pokemon-card-pokemon-name">
+              {pokemon.name}
+            </div>
+          </PokedexTableCell>
+        </PokedexTableRow>
+        <PokedexTableRow>
+          <PokedexTableCell>National №</PokedexTableCell>
+          <PokedexTableCell>{toMultipleSymbol('' + pokemon.id, 3)}</PokedexTableCell>
+        </PokedexTableRow>
+        <PokedexTableRow>
+          <PokedexTableCell>Type</PokedexTableCell>
+          <PokedexTableCell>
+            <div className="pokemon-card-types-list">{pokemon.types.map((t, idx) => <PokemonType key={idx} type={t.type} />)}</div>
+          </PokedexTableCell>
+        </PokedexTableRow>
+        <PokedexTableRow>
+          <PokedexTableCell>Species</PokedexTableCell>
+          <PokedexTableCell>{pokemon.species.title}</PokedexTableCell>
+        </PokedexTableRow>
+        <PokedexTableRow>
+          <PokedexTableCell>Height</PokedexTableCell>
+          <PokedexTableCell>
+            <PokemonHeight height={pokemon.height} />
+          </PokedexTableCell>
+        </PokedexTableRow>
+        <PokedexTableRow>
+          <PokedexTableCell>Weight</PokedexTableCell>
+          <PokedexTableCell>
+            <PokemonWeight weight={pokemon.weight} />
+          </PokedexTableCell>
+        </PokedexTableRow>
+        <PokedexTableRow>
+          <PokedexTableCell>Abilities</PokedexTableCell>
+          <PokedexTableCell>
+            <div className="pokemon-card-ability-list">{pokemon.abilities.map((a, idx) => <PokemonAbility key={idx} ability={a} />)}</div>
+          </PokedexTableCell>
+        </PokedexTableRow>
+      </PokedexTable>
     </div >
   )
 };
