@@ -1,42 +1,41 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
+
 
 import { getPokemons } from '../store/pokemon/actions';
-import { IPokemonState } from '../interfaces/pokemons.interface';
+import { IPokemonState, IPokemonAPIResource } from '../interfaces/pokemons.interface';
 import PokemonCard from './pokemon/PokemonCard';
 import Paginations from './common/pagination/Pagination';
 
 
 export interface IAppProps {
-  getPokemons: (offset?: number, limit?: number) => void;
-  pokemons: IPokemonState;
+  // getPokemons: (offset?: number, limit?: number) => void;
+  pokemonsResource: IPokemonAPIResource[];
 }
 
 export interface IAppState {
 }
 class PokemonList extends Component<IAppProps, IAppState> {
-
-  getPokemons = (offset?: number, limit?: number) => {
-    this.props.getPokemons(offset, limit)
+  async componentDidUpdate(prevProps: IAppProps) {
+    if (!isEqual(prevProps.pokemonsResource, this.props.pokemonsResource)) {
+      console.log('tratata');
+    }
   }
 
   public render() {
-    const { pokemons } = this.props;
-    const pokemonList = pokemons.results.map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon} />)
+    console.log(this.props.pokemonsResource);
     return (
-      <div className="container pokemon-list">
-        <div className="row">
-          {pokemonList}
-        </div>
-        <Paginations count={pokemons.count} onChangePage={this.getPokemons}></Paginations>
-      </div>
-    );
+      <Fragment>
+        12
+      </Fragment>
+    )
   }
 }
 
-const mapStateToProps = (state: any) => ({ pokemons: state.pokemons })
+const mapStateToProps = ({ pokemonResource }: { pokemonResource: { pokemons: IPokemonAPIResource[] } }) => ({ pokemonsResource: pokemonResource.pokemons });
 const mapActionsToProps = {
-  getPokemons
+  getPokemons,
 };
 
 export default connect(

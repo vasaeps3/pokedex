@@ -8,6 +8,8 @@ const language = 'en';
 export const LOAD_POKEMONS = 'LOAD_POKEMONS';
 
 
+
+
 export const getPokemons = (offset = 0, limit = 10) => {
   return async (dispatch: any) => {
     const { data } = await httpService.get(`/pokemon?offset=${offset}&limit=${limit}`);

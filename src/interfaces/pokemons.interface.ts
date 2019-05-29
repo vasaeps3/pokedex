@@ -72,3 +72,10 @@ export interface IPokemonState {
   offset: number;
   limit: number;
 }
+
+// -------------------------------------------------
+export interface IPokemonAPIResource extends INamedAPIResource { }
+export interface INamedAPIResource {
+  name: string;
+  url: string;
+}
