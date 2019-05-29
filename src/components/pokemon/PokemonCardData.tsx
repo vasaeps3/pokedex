@@ -1,17 +1,18 @@
 import React, { FunctionComponent } from 'react';
 
+import PokemonWeight from './PokemonWeight';
+import PokemonHeight from './PokemonHeight';
 import { PokemonType } from '../common/pokemon-type/PokemonType';
 import { IPokemon } from '../../interfaces/pokemons.interface';
 import PokedexTable from '../common/pokedex-table/PokedexTable';
 import PokedexTableRow from '../common/pokedex-table/PokedexTableRow';
 import PokedexTableCell from '../common/pokedex-table/PokedexTableCell';
 import { PokemonAbility } from '../common/pokemon-ability/PokemonAbility';
-import PokemonWeight from './PokemonWeight';
-import PokemonHeight from './PokemonHeight';
 import { toMultipleSymbol } from '../../utils/helper';
 
 
 export const PokemonCardData: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => {
+  const pokedex_number = pokemon.species.pokedex_numbers.find(n => n.pokedex.name === 'national');
   return (
     <div className="pokemon-card-section">
       <h5>Pokédex data</h5>
@@ -26,7 +27,7 @@ export const PokemonCardData: FunctionComponent<{ pokemon: IPokemon }> = ({ poke
         </PokedexTableRow>
         <PokedexTableRow>
           <PokedexTableCell>National №</PokedexTableCell>
-          <PokedexTableCell>{toMultipleSymbol('' + pokemon.id, 3)}</PokedexTableCell>
+          <PokedexTableCell>{pokedex_number && toMultipleSymbol('' + pokedex_number.entry_number, 3)}</PokedexTableCell>
         </PokedexTableRow>
         <PokedexTableRow>
           <PokedexTableCell>Type</PokedexTableCell>

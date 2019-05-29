@@ -54,6 +54,7 @@
       &:nth-child(2) {
         flex: 0 1 40px;
         text-align: right;
+        min-width: 40px;
       }
       &:last-child {
         flex: 1 1 auto;

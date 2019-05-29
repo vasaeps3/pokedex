@@ -2,9 +2,11 @@ import { map, asc } from 'type-comparator';
 
 import httpService from "../../utils/http";
 import { IPokemon } from "../../interfaces/pokemons.interface";
-export const LOAD_POKEMONS = 'LOAD_POKEMONS';
+
 
 const language = 'en';
+export const LOAD_POKEMONS = 'LOAD_POKEMONS';
+
 
 export const getPokemons = (offset = 0, limit = 10) => {
   return async (dispatch: any) => {
@@ -37,10 +39,9 @@ const getPokemon = async (pokemonName: string): Promise<IPokemon> => {
 }
 
 const loadSpecies = async (pokemon: IPokemon) => {
-  const { data: species } = await httpService.get(pokemon.species.url, { useBaseURL: false });
-  // TODO: Fix types
-  const title = species.genera.find((g: any) => g.language.name === language) || { genus: '' };
-  Object.assign(pokemon.species, { title: title.genus });
+  const { data: species } = await httpService.get<IPokemon['species']>(pokemon.species.url, { useBaseURL: false });
+  const title = species.genera.find(g => g.language.name === language) || { genus: '' };
+  Object.assign(pokemon.species, { title: title.genus, pokedex_numbers: species.pokedex_numbers || [] });
 }
 
 const loadAbilities = async (pokemon: IPokemon) => {
@@ -48,7 +49,6 @@ const loadAbilities = async (pokemon: IPokemon) => {
     .sort(map(p => p.slot, asc))
     .map(async (ab) => {
       const { data: ability } = await httpService.get(ab.ability.url, { useBaseURL: false });
-      // TODO: Fix types
       const title = ability.names.find((n: any) => n.language.name === language) || { name: '' };
       Object.assign(ab, { title: title.name });
     })

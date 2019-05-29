@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Pagination } from 'react-bootstrap';
+import times from 'lodash/times';
+
 
 export interface IAppProps {
   count: number;
-  // items: any[];
+  onChangePage: (offset: number, limit: number) => void;
 }
 
 export interface IAppState {
@@ -18,11 +21,10 @@ interface IPagination {
   endPage: number;
   startIndex: number;
   endIndex: number;
-  pages: any,
+  pages: number[],
 }
 
-export default class Pagination extends Component<IAppProps, IAppState> {
-
+export default class Paginations extends Component<IAppProps, IAppState> {
   state = {
     pager: {
       totalPages: 1,
@@ -33,66 +35,59 @@ export default class Pagination extends Component<IAppProps, IAppState> {
       endPage: 0,
       startIndex: 0,
       endIndex: 0,
-      pages: {},
+      pages: [],
     }
   };
 
   componentWillMount() {
-    // if (this.props.items && this.props.items.length) {
-    this.setPage(1);
-    // }
+    this.props.onChangePage(0, 20);
   }
-
-  // component
 
   componentDidUpdate(prevProps: IAppProps, prevState: any) {
-    console.log('componentDidUpdate');
-    console.log(prevProps, this.props);
     if (this.props.count !== prevProps.count) {
-      this.setPage(1);
+      this.setPage(1, true);
     }
-    // // reset page if items array has changed
-    // if (this.props.items !== prevProps.items) {
-    // }
   }
 
-  private setPage(page: number) {
-    let pager = this.state.pager;
+  private setPage(page: number, isFirst = false) {
+    let pager: IPagination = this.state.pager;
 
     if (page < 1 || page > pager.totalPages) {
       return;
     }
 
     pager = this.getPager(this.props.count, page);
-    console.log(this.props);
+    this.setState({ pager });
+
+    if (!isFirst) {
+      this.props.onChangePage((pager.currentPage - 1) * pager.pageSize, pager.pageSize);
+    }
   }
 
   getPager(totalItems: number, currentPage = 1, pageSize = 20): IPagination {
-    console.log(totalItems);
     const totalPages = Math.ceil(totalItems / pageSize);
     let startPage = 0;
     let endPage = 0;
-    if (totalPages <= 10) {
+    if (totalPages <= 6) {
       startPage = 1;
       endPage = totalPages;
     } else {
-      if (currentPage <= 6) {
+      if (currentPage <= 4) {
         startPage = 1;
-        endPage = 10;
-      } else if (currentPage + 4 >= totalPages) {
-        startPage = totalPages - 9;
+        endPage = 6;
+      } else if (currentPage + 2 >= totalPages) {
+        startPage = totalPages - 5;
         endPage = totalPages;
       } else {
-        startPage = currentPage - 5;
-        endPage = currentPage + 4;
+        startPage = currentPage - 3;
+        endPage = currentPage + 2;
       }
     }
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 
-    // const pages = [...Array().keys()].map(i => startPage + i);
-    console.log(startPage);
-    console.log(endPage);
+    const pages: number[] = times((endPage + 1) - startPage).map(i => startPage + i);
+
     return {
       totalItems,
       currentPage,
@@ -102,19 +97,27 @@ export default class Pagination extends Component<IAppProps, IAppState> {
       endPage,
       startIndex,
       endIndex,
-      pages: {},
+      pages,
     }
   }
 
   render() {
-    // this.getPager(100);
     const pager = this.state.pager;
+
+    if (!pager.pages || pager.pages.length <= 1) {
+      return null;
+    }
+
     return (
-      <ul className="pagination">
-        <li className={`page-item ${pager.currentPage === 1 ? 'disabled' : ''}`}>
-          <button className="page-link" onClick={() => this.setPage(1)}>First</button >
-        </li>
-      </ul>
+      <Pagination size="sm" className="justify-content-center">
+        <Pagination.First onClick={() => this.setPage(1)} disabled={pager.currentPage === 1} />
+        <Pagination.Prev onClick={() => this.setPage(pager.currentPage - 1)} disabled={pager.currentPage === 1} />
+        {pager.pages.map((page, index) =>
+          <Pagination.Item key={index} active={pager.currentPage === page} onClick={() => this.setPage(page)}>{page}</Pagination.Item>
+        )}
+        <Pagination.Next onClick={() => this.setPage(pager.currentPage + 1)} disabled={pager.currentPage === pager.totalPages} />
+        <Pagination.Last onClick={() => this.setPage(pager.totalPages)} disabled={pager.currentPage === pager.totalPages} />
+      </Pagination>
     )
   }
 }
