@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 
+import filterReducer from "./filter/reducer";
 import pokemonsReducer from "./pokemon/reducer";
-import pokemonResourceReducer from "./pokemon-resource/reducer";
+import pokemonPreviewReducer from "./pokemon-preview/reducer";
 
 
 export default combineReducers({
   pokemons: pokemonsReducer,
-  pokemonResource: pokemonResourceReducer,
+  pokemonPreview: pokemonPreviewReducer,
+  filter: filterReducer,
 });

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import PokedexPage from './components/pokedex/PokedexPage';
+import Header from './components/layout/Header';
 
 
-const App: React.FC = () => {
+const App: FunctionComponent = () => {
   return (
     <div className="App">
-
+      <Header />
       <PokedexPage />
     </div>
   );

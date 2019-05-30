@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getPokemonResource } from '../../store/pokemon-resource/actions';
-import PokemonList from '../PokemonList';
+// import PokemonList from '../PokemonList';
+import { getPokemonList } from '../../store/pokemon-preview/actions';
 
 export interface IAppProps {
   getPokemonResource: any;
@@ -18,10 +18,12 @@ class PokedexPage extends Component<IAppProps, IAppState> {
   public render() {
     return (
       <div>
-        <PokemonList />
+        {/* <PokemonList /> */}
       </div>
     );
   }
 }
-const mapDispatchToProps = { getPokemonResource };
+
+const mapDispatchToProps = { getPokemonResource: getPokemonList };
+
 export default connect(null, mapDispatchToProps)(PokedexPage);

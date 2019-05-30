@@ -1,11 +1,7 @@
 import { TypePokemon } from "./typePokemon.enum";
 
-interface IBaseInfo {
-  name: string;
-  url: string;
-}
 
-export interface IPokemon extends IBaseInfo {
+export interface IPokemon extends INamedAPIResource {
   id: number;
   sprites: {
     back_default: string;
@@ -33,18 +29,18 @@ export interface IPokemon extends IBaseInfo {
 
 export interface IPokemonGenera {
   genus: string;
-  language: IBaseInfo;
+  language: INamedAPIResource;
 }
 export interface IPokedexNumber {
   entry_number: number;
-  pokedex: IBaseInfo;
+  pokedex: INamedAPIResource;
 }
 
 export interface IAbilityPokemon {
   is_hidden: boolean;
   slot: number;
   title: string;
-  ability: IBaseInfo;
+  ability: INamedAPIResource;
 }
 
 export interface IStatsPokemon {
@@ -74,8 +70,22 @@ export interface IPokemonState {
 }
 
 // -------------------------------------------------
+export interface IPokemonTypeAPIResource extends INamedAPIResource { }
 export interface IPokemonAPIResource extends INamedAPIResource { }
+
 export interface INamedAPIResource {
   name: string;
   url: string;
+}
+
+export interface INamedLangAPIResource {
+  language: INamedAPIResource;
+  name: string;
+}
+export interface ITypeAPI {
+  pokemon: {
+    pokemon: IPokemonAPIResource[];
+    slot: number;
+  }[];
+  names: INamedLangAPIResource[];
 }

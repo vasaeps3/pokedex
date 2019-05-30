@@ -1,41 +1,49 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
 
-import { getPokemons } from '../store/pokemon/actions';
-import { IPokemonState, IPokemonAPIResource } from '../interfaces/pokemons.interface';
 import PokemonCard from './pokemon/PokemonCard';
-import Paginations from './common/pagination/Pagination';
+import { getPokemonsFull } from '../store/pokemon-preview/actions';
+import { IPokemonAPIResource, IPokemon } from '../interfaces/pokemons.interface';
+import { IPokemonAPIResourceState } from '../store/pokemon-preview/reducer';
 
 
 export interface IAppProps {
-  // getPokemons: (offset?: number, limit?: number) => void;
-  pokemonsResource: IPokemonAPIResource[];
+  getPokemonsFull: (pokemonsShort: IPokemonAPIResource[]) => void;
+  pokemonsShort: IPokemonAPIResource[];
+  pokemonsFull: IPokemon[];
 }
 
-export interface IAppState {
-}
-class PokemonList extends Component<IAppProps, IAppState> {
-  async componentDidUpdate(prevProps: IAppProps) {
-    if (!isEqual(prevProps.pokemonsResource, this.props.pokemonsResource)) {
-      console.log('tratata');
+class PokemonList extends Component<IAppProps> {
+
+  componentDidUpdate(prevProps: IAppProps) {
+    if (!isEqual(prevProps.pokemonsShort, this.props.pokemonsShort)) {
+      this.props.getPokemonsFull(this.props.pokemonsShort);
     }
   }
 
   public render() {
-    console.log(this.props.pokemonsResource);
+    const pokemonList = this.props.pokemonsFull.map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon} />)
+
     return (
-      <Fragment>
-        12
-      </Fragment>
+      <div className="container pokemon-list">
+        {/* <Pagination count={pokemons.count}></Pagination> */}
+        <div className="row">
+          {pokemonList}
+        </div>
+      </div>
     )
   }
 }
 
-const mapStateToProps = ({ pokemonResource }: { pokemonResource: { pokemons: IPokemonAPIResource[] } }) => ({ pokemonsResource: pokemonResource.pokemons });
+const mapStateToProps = ({ pokemonPreview }: { pokemonPreview: IPokemonAPIResourceState }) => ({
+  pokemonsShort: pokemonPreview.pokemonsShort,
+  pokemonsFull: pokemonPreview.pokemonsFull,
+});
+
 const mapActionsToProps = {
-  getPokemons,
+  getPokemonsFull,
 };
 
 export default connect(
