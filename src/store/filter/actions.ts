@@ -1,17 +1,37 @@
 import httpService from "../../utils/http";
 import { IPokemonTypeAPIResource, ITypeAPI } from "../../interfaces/pokemons.interface";
+import { Dispatch } from "redux";
 
 
 export const SET_FILTER = 'SET_FILTER';
 export const SET_TYPES_OPTION = 'SET_TYPES_OPTION';
+export const SET_POKEMON_LIST_BY_FILTER = 'SET_POKEMON_LIST_BY_FILTER';
 
-export const setFilter = (types: IPokemonTypeAPIResource[]) => {
-  return async (dispatch: any) => {
+export const setFilter = (type: IPokemonTypeAPIResource | null = null) => {
+  return async (dispatch: Dispatch) => {
 
-    const pokemonArrayByType = await Promise.all(types.map(t => loadType(t)));
-    const pokenomByFilter = pokemonArrayByType.reduce((acc, cur) => [...acc, ...cur], []).map(p => p.pokemon);
-    console.log(pokenomByFilter);
+    if (!type) {
+      dispatch({
+        type: SET_POKEMON_LIST_BY_FILTER,
+        payload: {
+          pokemonList: [],
+          isUseFilter: false,
+        },
+      });
 
+      return;
+    }
+
+    const pokemonArrayByType = await loadType(type);
+    const pokemonList = pokemonArrayByType.map(p => p.pokemon);
+
+    dispatch({
+      type: SET_POKEMON_LIST_BY_FILTER,
+      payload: {
+        pokemonList: pokemonList,
+        isUseFilter: true,
+      },
+    });
   }
 }
 

@@ -9,7 +9,7 @@ const language = 'en';
 export const SHOW_POKEMONS = 'SHOW_POKEMONS';
 export const SHOW_POKEMONS_FULL = 'SHOW_POKEMONS_FULL';
 
-// export const showPokemons = (payload: IPokemonAPIResource[]) => ({ type: SHOW_POKEMONS, payload });
+export const showPokemons = (pokemonsShort: IPokemonAPIResource[]) => ({ type: SHOW_POKEMONS, payload: { pokemonsShort } });
 
 export const getPokemonList = (offset = 0, limit = 20) => {
   return async (dispath: Dispatch) => {

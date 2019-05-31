@@ -1,13 +1,14 @@
 import { Reducer, Action } from "redux";
 
 import { IPokemonTypeAPIResource } from "../../interfaces/pokemons.interface";
-import { SET_TYPES_OPTION } from "./actions";
+import { SET_TYPES_OPTION, SET_POKEMON_LIST_BY_FILTER } from "./actions";
 
 
 export interface IPokemonFilterState {
   isLoading: boolean;
   typeList: IPokemonTypeAPIResource[];
-  typeShoose: IPokemonTypeAPIResource[];
+  pokemonList: IPokemonTypeAPIResource[];
+  isUseFilter: boolean;
 }
 
 interface IPokemonFilterAction extends Action {
@@ -16,21 +17,26 @@ interface IPokemonFilterAction extends Action {
 
 const INITIAL_STATE = {
   isLoading: false,
+  isUseFilter: false,
   typeList: [],
-  typeShoose: [],
+  pokemonList: [],
 }
 
 const filterReducer: Reducer<IPokemonFilterState, IPokemonFilterAction> = (state = INITIAL_STATE, action) => {
   const { payload } = action;
 
   switch (action.type) {
-    case SET_TYPES_OPTION: {
-      console.log(payload);
+    case SET_TYPES_OPTION:
       return {
         ...state,
         typeList: payload.typeList,
       }
-    }
+    case SET_POKEMON_LIST_BY_FILTER:
+      return {
+        ...state,
+        pokemonList: payload.pokemonList,
+        isUseFilter: payload.isUseFilter,
+      }
     default:
       return state;
   }

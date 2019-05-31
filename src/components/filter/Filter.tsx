@@ -10,12 +10,12 @@ import { IPokemonTypeAPIResource } from '../../interfaces/pokemons.interface';
 export interface IAppProps {
   filter: IPokemonFilterState;
   loadTypes: () => void;
-  setFilter: (types: IPokemonTypeAPIResource[]) => void;
+  setFilter: (types: IPokemonTypeAPIResource) => void;
 }
 
 class Filter extends Component<IAppProps> {
   state = {
-    selectedOption: [],
+    selectedOption: null,
   }
 
   componentDidMount() {
@@ -24,8 +24,7 @@ class Filter extends Component<IAppProps> {
 
   handleChange = (selectedOption: any) => {
     this.setState({ selectedOption });
-    const selected: { label: string, value: string }[] = selectedOption || [];
-    this.props.setFilter(selected.map(s => ({ name: s.label, url: s.value })));
+    this.props.setFilter(selectedOption && { name: selectedOption.label, url: selectedOption.value });
   }
 
   render() {
@@ -35,11 +34,10 @@ class Filter extends Component<IAppProps> {
     return (
       <SelectAsync
         isLoading={filter.isLoading}
-        value={selectedOption || []}
+        value={selectedOption}
         onChange={this.handleChange}
         options={options}
-        isMulti={true}
-        closeMenuOnSelect={false}
+        isClearable={true}
       />
     );
   }
