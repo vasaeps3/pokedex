@@ -3,17 +3,20 @@ import { connect } from 'react-redux';
 
 import Loader from '../loader/Loader';
 import { IState } from '../../store/reducers';
-import { getPokemonList, showPokemons } from '../../store/pokemon-preview/actions';
+import { getPokemonList, showPokemons, getCountPokemonList } from '../../store/pokemon-preview/actions';
 import PokedexPageByFilter from './PokedexPageByFilter';
 import { IPaginationState } from '../../store/pagination/reducer';
 import { IPokemonFilterState } from '../../store/filter/reducer';
 import { IPokemonAPIResource } from '../../interfaces/pokemons.interface';
+import PokedexPageList from './PokedexPageList';
 
 export interface IAppProps {
-  getPokemonResource: any;
   filter: IPokemonFilterState;
   pagination: IPaginationState;
+  pokemonCount: number;
+  getPokemonList: (offset?: number, limit?: number) => void;
   showPokemons: (pokemons: IPokemonAPIResource[]) => void;
+  getCountPokemonList: () => void;
 }
 
 class PokedexPage extends Component<IAppProps> {
@@ -27,8 +30,13 @@ class PokedexPage extends Component<IAppProps> {
           <PokedexPageByFilter
             pokemonList={filter.pokemonList}
             pagination={this.props.pagination}
-            showPokemons={this.props.showPokemons} />
-          : null}
+            showPokemons={this.props.showPokemons}
+            pokemonCount={this.props.pokemonCount} /> :
+          <PokedexPageList
+            getCountPokemonList={this.props.getCountPokemonList}
+            getPokemonList={this.props.getPokemonList}
+            pokemonCount={this.props.pokemonCount}
+            pagination={this.props.pagination} />}
       </Fragment>
     );
   }
@@ -37,7 +45,12 @@ class PokedexPage extends Component<IAppProps> {
 const mapStateToProps = (state: IState) => ({
   filter: state.filter,
   pagination: state.pagination,
+  pokemonCount: state.pokemonPreview.count,
 });
 
-const mapDispatchToProps = { getPokemonResource: getPokemonList, showPokemons };
+const mapDispatchToProps = {
+  getPokemonList,
+  showPokemons,
+  getCountPokemonList,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(PokedexPage);

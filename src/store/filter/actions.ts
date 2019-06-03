@@ -1,8 +1,8 @@
-import httpService from "../../utils/http";
-import { IPokemonTypeAPIResource, ITypeAPI } from "../../interfaces/pokemons.interface";
 import { Dispatch } from "redux";
 
-import { showLoader, hideLoader } from "../pokemon-preview/actions";
+import httpService from "../../utils/http";
+import { showLoader, hideLoader, SET_POKEMON_COUNT } from "../pokemon-preview/actions";
+import { IPokemonTypeAPIResource, ITypeAPI } from "../../interfaces/pokemons.interface";
 
 
 export const SET_FILTER = 'SET_FILTER';
@@ -20,9 +20,9 @@ export const setFilter = (type: IPokemonTypeAPIResource | null = null) => {
           isUseFilter: false,
         },
       });
-
       return;
     }
+
     dispatch(showLoader());
     const pokemonArrayByType = await loadType(type);
     const pokemonList = pokemonArrayByType.map(p => p.pokemon);
@@ -33,6 +33,13 @@ export const setFilter = (type: IPokemonTypeAPIResource | null = null) => {
       payload: {
         pokemonList: pokemonList,
         isUseFilter: true,
+      },
+    });
+
+    dispatch({
+      type: SET_POKEMON_COUNT,
+      payload: {
+        count: pokemonList.length,
       },
     });
   }
@@ -48,7 +55,6 @@ export const loadTypes = () => {
     })
   }
 }
-
 
 const loadType = async (type: IPokemonTypeAPIResource) => {
   const { data } = await httpService.get<ITypeAPI>(type.url, { useBaseURL: false });

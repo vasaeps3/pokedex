@@ -4,23 +4,25 @@ import { isEqual } from 'lodash';
 import PokemonList from '../PokemonList';
 import Paginations from '../common/pagination/Pagination';
 import { IPaginationState } from '../../store/pagination/reducer';
-import { IPokemonAPIResource } from '../../interfaces/pokemons.interface';
-import { IPokemonTypeAPIResource } from '../../interfaces/pokemons.interface';
 
 
 export interface IAppProps {
-  pokemonList: IPokemonTypeAPIResource[];
-  pagination: IPaginationState;
   pokemonCount: number;
-  showPokemons: (pokemons: IPokemonAPIResource[]) => void;
+  pagination: IPaginationState;
+  getPokemonList: (offset?: number, limit?: number) => void;
+  getCountPokemonList: () => void;
 }
 
-export default class PokedexPageByFilter extends Component<IAppProps> {
+export default class PokedexPageList extends Component<IAppProps> {
+
+  componentDidMount() {
+    this.props.getCountPokemonList();
+  }
 
   componentDidUpdate(prevProps: IAppProps) {
     if (!isEqual(this.props.pagination, prevProps.pagination)) {
       const { pagination } = this.props;
-      this.props.showPokemons(this.props.pokemonList.slice(pagination.startIndex, pagination.endIndex + 1));
+      this.props.getPokemonList((pagination.currentPage - 1) * pagination.pageSize, pagination.pageSize);
     }
   }
 

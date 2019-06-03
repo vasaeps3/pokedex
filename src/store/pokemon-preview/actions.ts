@@ -6,22 +6,39 @@ import { IPokemonAPIResource, IPokemon } from '../../interfaces/pokemons.interfa
 
 
 const language = 'en';
-export const SHOW_POKEMONS = 'SHOW_POKEMONS';
-export const SHOW_POKEMONS_FULL = 'SHOW_POKEMONS_FULL';
 export const SHOW_LOADER = 'SHOW_LOADER';
 export const HIDE_LOADER = 'HIDE_LOADER';
+export const SHOW_POKEMONS = 'SHOW_POKEMONS';
+export const SET_POKEMON_COUNT = 'SET_POKEMON_COUNT';
+export const SHOW_POKEMONS_FULL = 'SHOW_POKEMONS_FULL';
 
 export const showLoader = () => ({ type: SHOW_LOADER });
 export const hideLoader = () => ({ type: HIDE_LOADER });
 export const showPokemons = (pokemonsShort: IPokemonAPIResource[]) => ({ type: SHOW_POKEMONS, payload: { pokemonsShort } });
 
-export const getPokemonList = (offset = 0, limit = 20) => {
+
+export const getCountPokemonList = (offset = 0, limit = 10) => {
+  return async (dispath: Dispatch) => {
+    dispath(showLoader());
+    const { data: pokemons } = await httpService.get<{ count: number, results: IPokemonAPIResource[] }>(`/pokemon?offset=${offset}&limit=${limit}`);
+    dispath(hideLoader());
+    dispath({
+      type: SET_POKEMON_COUNT,
+      payload: {
+        count: pokemons.count,
+      },
+    });
+  }
+}
+export const getPokemonList = (offset = 0, limit = 10) => {
   return async (dispath: Dispatch) => {
     const { data: pokemons } = await httpService.get<{ count: number, results: IPokemonAPIResource[] }>(`/pokemon?offset=${offset}&limit=${limit}`);
-
     dispath({
       type: SHOW_POKEMONS,
-      payload: { pokemonsShort: pokemons.results },
+      payload: {
+        pokemonsShort: pokemons.results,
+        count: pokemons.count,
+      },
     });
   }
 }

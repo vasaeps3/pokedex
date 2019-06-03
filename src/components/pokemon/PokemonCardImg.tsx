@@ -1,24 +1,13 @@
-import React, { FunctionComponent } from 'react';
-import { Carousel } from 'react-bootstrap';
-import * as _ from 'lodash';
+import React, { FunctionComponent, Fragment } from 'react';
+import { Image } from 'react-bootstrap'
 
 import { IPokemon } from '../../interfaces/pokemons.interface';
 
-export const PokemonCardImg: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => {
-  const imgArray = _.toArray(pokemon.sprites).filter(img => img);
 
+export const PokemonCardImg: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => {
   return (
-    <div className="pokemon-card-img">
-      <Carousel fade={true} interval={null as any} slide={false}>
-        {imgArray.map((img,idx) => (
-          <Carousel.Item key={idx}>
-            <img
-              src={img}
-              alt={pokemon.name}
-            />
-          </Carousel.Item>
-        ))}
-      </Carousel>
-    </div >
+    <Fragment>
+      {pokemon.sprites.front_default && <Image src={pokemon.sprites.front_default} fluid />}
+    </Fragment>
   )
 };

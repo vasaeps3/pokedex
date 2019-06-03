@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Pagination } from 'react-bootstrap';
-
 import { connect } from 'react-redux';
-
 
 import { IPaginationState } from '../../../store/pagination/reducer';
 import { calculatePagination } from '../../../store/pagination/actions';
@@ -17,7 +15,9 @@ export interface IAppProps {
 class Paginations extends Component<IAppProps> {
 
   componentWillMount() {
-    this.calculatePagination();
+    if (!!this.props.count) {
+      this.calculatePagination();
+    }
   }
 
   componentDidUpdate(prevProps: IAppProps) {
@@ -35,6 +35,10 @@ class Paginations extends Component<IAppProps> {
 
   render() {
     const { pagination } = this.props;
+    if(!this.props.count){
+      return null;
+    }
+
     return (
       <Pagination size="sm" className="justify-content-center">
         <Pagination.First onClick={() => this.setPage(1)} disabled={pagination.currentPage === 1} />

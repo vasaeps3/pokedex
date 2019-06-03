@@ -5,6 +5,7 @@ $font-family-sans-serif: 'Roboto', sans-serif;
 .app {
   min-height: 100vh;
   .page {
+    padding: 1rem 0; 
     position: relative;
     min-height: calc(100vh - 56px);
   }
