@@ -6,9 +6,11 @@ import Header from './components/layout/Header';
 
 const App: FunctionComponent = () => {
   return (
-    <div className="App">
+    <div className="app">
       <Header />
-      <PokedexPage />
+      <div className="page">
+        <PokedexPage />
+      </div>
     </div>
   );
 }

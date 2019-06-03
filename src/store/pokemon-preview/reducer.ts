@@ -2,13 +2,13 @@ import { Reducer, Action } from "redux";
 
 
 import { IPokemonAPIResource, IPokemon } from "../../interfaces/pokemons.interface";
-import { SHOW_POKEMONS, SHOW_POKEMONS_FULL } from "./actions";
+import { SHOW_POKEMONS, SHOW_POKEMONS_FULL, SHOW_LOADER, HIDE_LOADER } from "./actions";
 
 
 export interface IPokemonAPIResourceState {
   pokemonsShort: IPokemonAPIResource[];
   pokemonsFull: IPokemon[];
-  isFilter: boolean;
+  isLoading: boolean;
 }
 
 interface IPokemonAPIResourceAction extends Action {
@@ -18,13 +18,23 @@ interface IPokemonAPIResourceAction extends Action {
 const INITIAL_STATE: IPokemonAPIResourceState = {
   pokemonsShort: [],
   pokemonsFull: [],
-  isFilter: false,
+  isLoading: false,
 }
 
 const pokemonPreviewReducer: Reducer<IPokemonAPIResourceState, IPokemonAPIResourceAction> = (state = INITIAL_STATE, action) => {
   const { payload } = action;
 
   switch (action.type) {
+    case SHOW_LOADER:
+      return {
+        ...state,
+        isLoading: true,
+      }
+    case HIDE_LOADER:
+      return {
+        ...state,
+        isLoading: false,
+      }
     case SHOW_POKEMONS:
       return {
         ...state,

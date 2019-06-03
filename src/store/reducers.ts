@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import filterReducer, { IPokemonFilterState } from "./filter/reducer";
 import pokemonsReducer from "./pokemon/reducer";
 import paginationReducer, { IPaginationState } from "./pagination/reducer";
-import pokemonPreviewReducer from "./pokemon-preview/reducer";
+import pokemonPreviewReducer, { IPokemonAPIResourceState } from "./pokemon-preview/reducer";
 
 
 export default combineReducers({
@@ -14,6 +14,7 @@ export default combineReducers({
 });
 
 export interface IState {
-  pagination: IPaginationState;
   filter: IPokemonFilterState;
+  pagination: IPaginationState;
+  pokemonPreview: IPokemonAPIResourceState;
 }

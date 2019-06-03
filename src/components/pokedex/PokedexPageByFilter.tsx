@@ -29,7 +29,6 @@ export default class PokedexPageByFilter extends Component<IAppProps> {
       <div>
         <Paginations count={pokemonList.length}></Paginations>
         <PokemonList />
-        {pokemonList.length}
         <Paginations count={pokemonList.length}></Paginations>
       </div>
     );

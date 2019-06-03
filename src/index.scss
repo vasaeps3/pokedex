@@ -2,3 +2,18 @@
 $font-family-sans-serif: 'Roboto', sans-serif;
 
 @import 'bootstrap/scss/bootstrap.scss';
+.app {
+  min-height: 100vh;
+  .page {
+    position: relative;
+    min-height: calc(100vh - 56px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .app {
+    .page {
+      min-height: calc(100vh - 94px);
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
+import Loader from '../loader/Loader';
 import { IState } from '../../store/reducers';
 import { getPokemonList, showPokemons } from '../../store/pokemon-preview/actions';
 import PokedexPageByFilter from './PokedexPageByFilter';
@@ -21,6 +22,7 @@ class PokedexPage extends Component<IAppProps> {
     const { filter } = this.props;
     return (
       <Fragment>
+        <Loader />
         {filter.isUseFilter ?
           <PokedexPageByFilter
             pokemonList={filter.pokemonList}
@@ -38,5 +40,4 @@ const mapStateToProps = (state: IState) => ({
 });
 
 const mapDispatchToProps = { getPokemonResource: getPokemonList, showPokemons };
-
 export default connect(mapStateToProps, mapDispatchToProps)(PokedexPage);

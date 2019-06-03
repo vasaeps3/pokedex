@@ -8,7 +8,11 @@ import { IPokemonAPIResource, IPokemon } from '../../interfaces/pokemons.interfa
 const language = 'en';
 export const SHOW_POKEMONS = 'SHOW_POKEMONS';
 export const SHOW_POKEMONS_FULL = 'SHOW_POKEMONS_FULL';
+export const SHOW_LOADER = 'SHOW_LOADER';
+export const HIDE_LOADER = 'HIDE_LOADER';
 
+export const showLoader = () => ({ type: SHOW_LOADER });
+export const hideLoader = () => ({ type: HIDE_LOADER });
 export const showPokemons = (pokemonsShort: IPokemonAPIResource[]) => ({ type: SHOW_POKEMONS, payload: { pokemonsShort } });
 
 export const getPokemonList = (offset = 0, limit = 20) => {
@@ -24,12 +28,13 @@ export const getPokemonList = (offset = 0, limit = 20) => {
 
 export const getPokemonsFull = (pokemonsShort: IPokemonAPIResource[]) => {
   return async (dispatch: Dispatch) => {
+    dispatch(showLoader());
     const pokemonsFull = await Promise.all(pokemonsShort.map(p => getPokemon(p.name)));
-
     dispatch({
       type: SHOW_POKEMONS_FULL,
       payload: { pokemonsFull },
     });
+    dispatch(hideLoader());
   }
 }
 

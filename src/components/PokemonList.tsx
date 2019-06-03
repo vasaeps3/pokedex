@@ -28,7 +28,6 @@ class PokemonList extends Component<IAppProps> {
 
     return (
       <div className="container pokemon-list">
-        {/* <Pagination count={pokemons.count}></Pagination> */}
         <div className="row">
           {pokemonList}
         </div>
