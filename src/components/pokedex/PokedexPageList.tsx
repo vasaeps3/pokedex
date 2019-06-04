@@ -9,7 +9,7 @@ import { IPaginationState } from '../../store/pagination/reducer';
 export interface IAppProps {
   pokemonCount: number;
   pagination: IPaginationState;
-  getPokemonList: (offset?: number, limit?: number) => void;
+  loadPokemonList: (offset?: number, limit?: number) => void;
   getCountPokemonList: () => void;
 }
 
@@ -22,7 +22,7 @@ export default class PokedexPageList extends Component<IAppProps> {
   componentDidUpdate(prevProps: IAppProps) {
     if (!isEqual(this.props.pagination, prevProps.pagination)) {
       const { pagination } = this.props;
-      this.props.getPokemonList((pagination.currentPage - 1) * pagination.pageSize, pagination.pageSize);
+      this.props.loadPokemonList((pagination.currentPage - 1) * pagination.pageSize, pagination.pageSize);
     }
   }
 

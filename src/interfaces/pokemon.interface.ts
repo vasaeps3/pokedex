@@ -1,18 +1,15 @@
-import httpService from "./http";
-import { TypePokemon } from "../interfaces/typePokemon.enum";
+import { TypePokemon } from "./type-pokemon.enum";
 
 
-// import { INamedAPIResource } from "../interfaces/pokemons.interface";
-
-const language = 'en';
-
-export const loadTranslateData = async <T extends INamedLangAPIResource>(item: INamedAPIResource) => {
-  if (!item) {
-    return;
-  }
-  const { data } = await httpService.get<T>(item.url, { useBaseURL: false });
-  const findTitle = data.names.find(g => g.language.name === language);
-  item.title = findTitle ? findTitle.name : '';
+export interface IPokemon extends INamedAPIResource {
+  id: number;
+  types: ITypePokemonNew[];
+  sprites: ISprites;
+  species: ISpecies;
+  abilities: IAbility[];
+  height: number;
+  weight: number;
+  stats: IStat[];
 }
 
 export interface IName {
@@ -35,7 +32,7 @@ export interface IChainLink {
   species: INamedAPIResource;
   evolves_to: IChainLink[];
   evolution_details: IEvolutionDetails[];
-  pokemon: IPokemonNew;
+  pokemon: IPokemon;
 }
 
 export interface IEvolutionDetails {
@@ -44,14 +41,10 @@ export interface IEvolutionDetails {
   held_item: INamedAPIResource;
 }
 
-export interface IPokemonNew extends INamedAPIResource {
-  id: number;
-  types: ITypePokemonNew[];
-  sprites: ISprites;
-  species: ISpecies;
-  abilities: IAbility[];
-  height: number;
-  weight: number;
+export interface IStat {
+  base_stat: number;
+  effort: number;
+  stat: INamedAPIResource;
 }
 
 export interface IAbility {
@@ -101,3 +94,11 @@ export interface ITypePokemonNew {
 }
 
 export interface IEvolutionTrigger extends INamedLangAPIResource { }
+
+export interface ITypeAPI {
+  pokemon: {
+    pokemon: INamedAPIResource[];
+    slot: number;
+  }[];
+  names: INamedLangAPIResource[];
+}

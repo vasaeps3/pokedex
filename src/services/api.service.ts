@@ -25,29 +25,8 @@ const get = async<T>(path: string, options: IHttpOptions = { useCache: true, use
   return axios.get<T>(`${url}`);
 }
 
-// type ApiFunction = <T>(...args: any[]) => Promise<T>;
-
-// const memo = <V extends Function>(f: V) => {
-//   const cache: { [key: string]: any } = {};
-
-//   const newFunction = (...args: any[]): V => {
-//     const token = JSON.stringify(args);
-
-//     if (!cache[token]) {
-//       cache[token] = f(...args);
-//     }
-
-//     return cache[token];
-//   };
-
-//   return newFunction;
-// }
-
-// const getWithCache = memo(getByFullUrl);
-
-
-const httpService = {
+const apiService = {
   get,
 }
 
-export default httpService;
+export default apiService;

@@ -3,9 +3,9 @@ import { Modal } from 'react-bootstrap';
 
 import { connect } from 'react-redux';
 import { IState } from '../../store/reducers';
-import { IChainLink } from '../../utils/loading.service';
+import { IChainLink } from '../../interfaces/pokemon.interface';
 import PokemonEvolutionChain from './PokemonEvolutionChain';
-import { hideEvolutionChain } from '../../store/pokemon-preview/actions';
+import { hideEvolutionChain } from '../../store/pokemon-preview/actions.chain';
 
 
 interface IAppProps {

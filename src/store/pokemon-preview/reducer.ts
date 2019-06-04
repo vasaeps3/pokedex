@@ -1,13 +1,12 @@
 import { Reducer, Action } from "redux";
 
-import { SHOW_POKEMONS, SHOW_EVOLUTION_CHAIN, HIDE_EVOLUTION_CHAIN } from "./actions";
-import { IChainLink, IPokemonNew, INamedAPIResource } from "../../utils/loading.service";
-import { SHOW_LOADER, HIDE_LOADER, SET_POKEMON_COUNT, SHOW_POKEMONS_FULL } from "./actions.chain";
+import { SHOW_LOADER, HIDE_LOADER, SET_POKEMON_COUNT, SHOW_POKEMONS_FULL, SHOW_POKEMONS, SHOW_EVOLUTION_CHAIN, HIDE_EVOLUTION_CHAIN } from "./actions.chain";
+import { INamedAPIResource, IPokemon, IChainLink } from "../../interfaces/pokemon.interface";
 
 
 export interface IPokemonAPIResourceState {
   pokemonsShort: INamedAPIResource[];
-  pokemonsFull: IPokemonNew[];
+  pokemonsFull: IPokemon[];
   isLoading: boolean;
   count: number;
   chain: IChainLink | null;

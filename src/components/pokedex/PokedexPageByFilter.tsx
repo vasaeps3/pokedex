@@ -4,15 +4,14 @@ import { isEqual } from 'lodash';
 import PokemonList from '../PokemonList';
 import Paginations from '../common/pagination/Pagination';
 import { IPaginationState } from '../../store/pagination/reducer';
-import { IPokemonAPIResource } from '../../interfaces/pokemons.interface';
-import { IPokemonTypeAPIResource } from '../../interfaces/pokemons.interface';
+import { INamedAPIResource } from '../../interfaces/pokemon.interface';
 
 
 export interface IAppProps {
-  pokemonList: IPokemonTypeAPIResource[];
+  pokemonList: INamedAPIResource[];
   pagination: IPaginationState;
   pokemonCount: number;
-  showPokemons: (pokemons: IPokemonAPIResource[]) => void;
+  showPokemons: (pokemons: INamedAPIResource[]) => void;
 }
 
 export default class PokedexPageByFilter extends Component<IAppProps> {

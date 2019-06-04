@@ -1,7 +1,7 @@
 import React, { FunctionComponent, Fragment } from 'react';
 
-import { IPokemon } from '../../interfaces/pokemons.interface';
 import { toMultipleSymbol } from '../../utils/helper';
+import { IPokemon } from '../../interfaces/pokemon.interface';
 
 
 const PokemonHeight: FunctionComponent<{ height: IPokemon['height'] }> = ({ height }) => {

@@ -4,19 +4,19 @@ import SelectAsync from 'react-select';
 
 import { IPokemonFilterState } from '../../store/filter/reducer';
 import { loadTypes, setFilter } from '../../store/filter/actions';
-import { IPokemonTypeAPIResource } from '../../interfaces/pokemons.interface';
+import { INamedAPIResource } from '../../interfaces/pokemon.interface';
 
 
 export interface IAppProps {
   filter: IPokemonFilterState;
   loadTypes: () => void;
-  setFilter: (types: IPokemonTypeAPIResource) => void;
+  setFilter: (types: INamedAPIResource) => void;
 }
 
 class Filter extends Component<IAppProps> {
   state = {
     selectedOption: null,
-  }
+  };
 
   componentDidMount() {
     this.props.loadTypes();
@@ -24,13 +24,17 @@ class Filter extends Component<IAppProps> {
 
   handleChange = (selectedOption: any) => {
     this.setState({ selectedOption });
-    // this.props.setFilter(selectedOption && { name: selectedOption.label, url: selectedOption.value });
+    this.props.setFilter(selectedOption);
   }
 
   render() {
     const { filter } = this.props;
     const { selectedOption } = this.state;
-    const options = filter.typeList.map(o => ({ value: o.url, label: o.name }));
+    const options = filter.typeList.map(o => ({
+      ...o,
+      value: o.url,
+      label: o.title
+    }));
     return (
       <SelectAsync
         isLoading={filter.isLoading}
@@ -44,6 +48,9 @@ class Filter extends Component<IAppProps> {
 }
 
 const mapStateToProps = ({ filter }: { filter: IPokemonFilterState }) => ({ filter });
-const mapDispatchToProps = { loadTypes, setFilter };
+const mapDispatchToProps = {
+  loadTypes,
+  setFilter,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, Fragment } from 'react';
 import { Image } from 'react-bootstrap'
 
-import { ISprites } from '../../../utils/loading.service';
+import { ISprites } from '../../../interfaces/pokemon.interface';
 
 
 export const PokemonImg: FunctionComponent<{ sprites: ISprites }> = ({ sprites }) => {

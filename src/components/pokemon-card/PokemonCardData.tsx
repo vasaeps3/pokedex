@@ -8,10 +8,10 @@ import PokedexTableRow from '../common/pokedex-table/PokedexTableRow';
 import PokedexTableCell from '../common/pokedex-table/PokedexTableCell';
 import { PokemonAbility } from '../common/pokemon-ability/PokemonAbility';
 import { toMultipleSymbol } from '../../utils/helper';
-import { IPokemonNew } from '../../utils/loading.service';
+import { IPokemon } from '../../interfaces/pokemon.interface';
 
 
-export const PokemonCardData: FunctionComponent<{ pokemon: IPokemonNew }> = ({ pokemon }) => {
+export const PokemonCardData: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => {
   const pokedex_number = pokemon.species.pokedex_numbers.find(n => n.pokedex.name === 'national');
   return (
     <div className="pokemon-card-section">

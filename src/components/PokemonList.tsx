@@ -6,14 +6,14 @@ import { isEqual } from 'lodash';
 import PokemonCard from './pokemon-card/PokemonCard';
 import { IPokemonAPIResourceState } from '../store/pokemon-preview/reducer';
 import { showEvolutionChainNew, getPokemonsFull } from '../store/pokemon-preview/actions.chain';
-import { ISpecies, IPokemonNew, INamedAPIResource } from '../utils/loading.service';
+import { INamedAPIResource, ISpecies, IPokemon } from '../interfaces/pokemon.interface';
 
 
 export interface IAppProps {
   getPokemonsFull: (pokemonsShort: INamedAPIResource[]) => void;
   showEvolutionChainNew: (evolution_chain: ISpecies['evolution_chain']) => void;
   pokemonsShort: INamedAPIResource[];
-  pokemonsFull: IPokemonNew[];
+  pokemonsFull: IPokemon[];
 }
 
 class PokemonList extends Component<IAppProps> {

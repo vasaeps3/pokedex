@@ -1,13 +1,13 @@
 import { Reducer, Action } from "redux";
 
-import { IPokemonTypeAPIResource } from "../../interfaces/pokemons.interface";
+import { INamedAPIResource } from "../../interfaces/pokemon.interface";
 import { SET_TYPES_OPTION, SET_POKEMON_LIST_BY_FILTER } from "./actions";
 
 
 export interface IPokemonFilterState {
   isLoading: boolean;
-  typeList: IPokemonTypeAPIResource[];
-  pokemonList: IPokemonTypeAPIResource[];
+  typeList: INamedAPIResource[];
+  pokemonList: INamedAPIResource[];
   isUseFilter: boolean;
 }
 

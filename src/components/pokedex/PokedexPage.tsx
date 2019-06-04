@@ -3,22 +3,20 @@ import { connect } from 'react-redux';
 
 import Loader from '../loader/Loader';
 import { IState } from '../../store/reducers';
-import { getPokemonList, showPokemons } from '../../store/pokemon-preview/actions';
 import PokedexPageByFilter from './PokedexPageByFilter';
 import { IPaginationState } from '../../store/pagination/reducer';
 import { IPokemonFilterState } from '../../store/filter/reducer';
-import { IPokemonAPIResource } from '../../interfaces/pokemons.interface';
 import PokedexPageList from './PokedexPageList';
 import PokemonEvolutionChainModal from '../pokemon-evolution-chain/PokemonEvolutionChainModal';
-import { showEvolutionChainNew, loadCountPokemonList } from '../../store/pokemon-preview/actions.chain';
-import { ISpecies } from '../../utils/loading.service';
+import { showEvolutionChainNew, loadCountPokemonList, loadPokemonList, showPokemons } from '../../store/pokemon-preview/actions.chain';
+import { INamedAPIResource, ISpecies } from '../../interfaces/pokemon.interface';
 
 export interface IAppProps {
   filter: IPokemonFilterState;
   pagination: IPaginationState;
   pokemonCount: number;
-  getPokemonList: (offset?: number, limit?: number) => void;
-  showPokemons: (pokemons: IPokemonAPIResource[]) => void;
+  loadPokemonList: (offset?: number, limit?: number) => void;
+  showPokemons: (pokemons: INamedAPIResource[]) => void;
   loadCountPokemonList: () => void;
   showEvolutionChainNew: (evolution_chain: ISpecies['evolution_chain']) => void;
 }
@@ -39,7 +37,7 @@ class PokedexPage extends Component<IAppProps> {
             pokemonCount={this.props.pokemonCount} /> :
           <PokedexPageList
             getCountPokemonList={this.props.loadCountPokemonList}
-            getPokemonList={this.props.getPokemonList}
+            loadPokemonList={this.props.loadPokemonList}
             pokemonCount={this.props.pokemonCount}
             pagination={this.props.pagination} />}
       </Fragment>
@@ -54,7 +52,7 @@ const mapStateToProps = (state: IState) => ({
 });
 
 const mapDispatchToProps = {
-  getPokemonList,
+  loadPokemonList,
   showPokemons,
   loadCountPokemonList,
   showEvolutionChainNew,

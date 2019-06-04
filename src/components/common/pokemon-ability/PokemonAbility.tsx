@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
 import './PokemonAbility.scss';
-import { IAbility } from '../../../utils/loading.service';
+import { IAbility } from '../../../interfaces/pokemon.interface';
 
 
 export const PokemonAbility: FunctionComponent<{ ability: IAbility }> = ({ ability }) => {

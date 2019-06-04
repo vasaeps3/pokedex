@@ -3,7 +3,6 @@
   height: 100%;
   background: #fff;
   border-radius: .5rem;
-  // border: 1px solid #ced2d6;
   &-header{
     font-size: 10px;
     text-align: center;
@@ -23,5 +22,8 @@
     text-align: center;
     font-size: 14px;
     font-weight: bold;
+  }
+  &-img{
+    text-align: center;
   }
 }

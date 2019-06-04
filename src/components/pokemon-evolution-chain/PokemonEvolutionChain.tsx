@@ -2,7 +2,7 @@ import React, { Fragment, Component } from 'react';
 import Tree from 'react-d3-tree';
 
 import PokemonChainInfo from './PokemonChainInfo';
-import { IChainLink, IPokemonNew, IEvolutionDetails } from '../../utils/loading.service';
+import { IChainLink, IEvolutionDetails, IPokemon } from '../../interfaces/pokemon.interface';
 
 
 interface IAppProps {
@@ -50,9 +50,9 @@ class PokemonEvolutionChain extends Component<IAppProps> {
               nodeLabelComponent={{
                 render: <NodeLabel />,
                 foreignObjectWrapper: {
-                  width: 100,
+                  width: 120,
                   height: 170,
-                  x: -50,
+                  x: -60,
                   y: -80,
                 }
               }}
@@ -73,7 +73,7 @@ export default PokemonEvolutionChain;
 class NodeLabel extends React.PureComponent<any> {
   render() {
     const { nodeData } = this.props;
-    const pokemon: IPokemonNew = nodeData.pokemon;
+    const pokemon: IPokemon = nodeData.pokemon;
     const evolutionDetails: IEvolutionDetails[] = nodeData.evolution_details;
     return (
       <PokemonChainInfo pokemon={pokemon} evolutionDetails={evolutionDetails} />

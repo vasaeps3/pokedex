@@ -1,6 +1,6 @@
 import React, { FunctionComponent, Fragment } from 'react';
 
-import { IPokemon } from '../../interfaces/pokemons.interface';
+import { IPokemon } from '../../interfaces/pokemon.interface';
 
 
 const PokemonWeight: FunctionComponent<{ weight: IPokemon['weight'] }> = ({ weight }) => {
