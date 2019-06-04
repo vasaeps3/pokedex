@@ -1,8 +1,8 @@
 import { Dispatch } from "redux";
 
 import httpService from "../../utils/http";
-import { showLoader, hideLoader, SET_POKEMON_COUNT } from "../pokemon-preview/actions";
 import { IPokemonTypeAPIResource, ITypeAPI } from "../../interfaces/pokemons.interface";
+import { showLoader, hideLoader, SET_POKEMON_COUNT } from "../pokemon-preview/actions.chain";
 
 
 export const SET_FILTER = 'SET_FILTER';

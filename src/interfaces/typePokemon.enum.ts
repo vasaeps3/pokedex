@@ -26,7 +26,7 @@ type IColorTypePokemon = {
 }
 
 export const ColorTypePokemon: IColorTypePokemon = {
-  [TypePokemon.FIGHTING]: '#aa9',
+  [TypePokemon.NORMAL]: '#aa9',
   [TypePokemon.FIGHTING]: '#b54',
   [TypePokemon.FLYING]: '#89f',
   [TypePokemon.POISON]: '#a59',

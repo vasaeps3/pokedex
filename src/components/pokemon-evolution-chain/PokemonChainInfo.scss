@@ -1,0 +1,27 @@
+.pokemon-info-card {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: .5rem;
+  // border: 1px solid #ced2d6;
+  &-header{
+    font-size: 10px;
+    text-align: center;
+  }
+  &-types-list{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    .type-label{
+      width: 45px;
+      min-width: 45px;
+      font-size: 8px;
+      line-height: 1rem;
+    }
+  }
+  &-name{
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}

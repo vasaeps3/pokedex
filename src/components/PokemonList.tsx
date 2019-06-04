@@ -3,16 +3,17 @@ import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
 
-import PokemonCard from './pokemon/PokemonCard';
-import { getPokemonsFull } from '../store/pokemon-preview/actions';
-import { IPokemonAPIResource, IPokemon } from '../interfaces/pokemons.interface';
+import PokemonCard from './pokemon-card/PokemonCard';
 import { IPokemonAPIResourceState } from '../store/pokemon-preview/reducer';
+import { showEvolutionChainNew, getPokemonsFull } from '../store/pokemon-preview/actions.chain';
+import { ISpecies, IPokemonNew, INamedAPIResource } from '../utils/loading.service';
 
 
 export interface IAppProps {
-  getPokemonsFull: (pokemonsShort: IPokemonAPIResource[]) => void;
-  pokemonsShort: IPokemonAPIResource[];
-  pokemonsFull: IPokemon[];
+  getPokemonsFull: (pokemonsShort: INamedAPIResource[]) => void;
+  showEvolutionChainNew: (evolution_chain: ISpecies['evolution_chain']) => void;
+  pokemonsShort: INamedAPIResource[];
+  pokemonsFull: IPokemonNew[];
 }
 
 class PokemonList extends Component<IAppProps> {
@@ -23,8 +24,12 @@ class PokemonList extends Component<IAppProps> {
     }
   }
 
+  private handleClick = (evolution_chain: ISpecies['evolution_chain']) => {
+    this.props.showEvolutionChainNew(evolution_chain);
+  }
+
   public render() {
-    const pokemonList = this.props.pokemonsFull.map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon} />)
+    const pokemonList = this.props.pokemonsFull.map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon} handleClick={this.handleClick} />)
 
     return (
       <div className="container pokemon-list">
@@ -43,6 +48,7 @@ const mapStateToProps = ({ pokemonPreview }: { pokemonPreview: IPokemonAPIResour
 
 const mapActionsToProps = {
   getPokemonsFull,
+  showEvolutionChainNew,
 };
 
 export default connect(

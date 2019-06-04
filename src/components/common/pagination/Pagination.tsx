@@ -26,7 +26,7 @@ class Paginations extends Component<IAppProps> {
     }
   }
 
-  private calculatePagination = (currentPage = 1) => {
+  private calculatePagination = (currentPage = 95) => {
     this.props.calculatePagination(this.props.count, currentPage);
   }
   private setPage = (page: number) => {

@@ -24,7 +24,7 @@ class Filter extends Component<IAppProps> {
 
   handleChange = (selectedOption: any) => {
     this.setState({ selectedOption });
-    this.props.setFilter(selectedOption && { name: selectedOption.label, url: selectedOption.value });
+    // this.props.setFilter(selectedOption && { name: selectedOption.label, url: selectedOption.value });
   }
 
   render() {
