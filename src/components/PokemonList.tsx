@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 
 
+import './PokemonList.scss';
 import PokemonCard from './pokemon-card/PokemonCard';
 import { IPokemonAPIResourceState } from '../store/pokemon-preview/reducer';
 import { showEvolutionChainNew, getPokemonsFull } from '../store/pokemon-preview/actions.chain';
 import { INamedAPIResource, ISpecies, IPokemon } from '../interfaces/pokemon.interface';
+import { Container, Row } from 'react-bootstrap';
 
 
 export interface IAppProps {
@@ -32,11 +34,11 @@ class PokemonList extends Component<IAppProps> {
     const pokemonList = this.props.pokemonsFull.map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon} handleClick={this.handleClick} />)
 
     return (
-      <div className="container pokemon-list">
-        <div className="row">
+      <Container className="pokemon-list">
+        <Row>
           {pokemonList}
-        </div>
-      </div>
+        </Row>
+      </Container>
     )
   }
 }

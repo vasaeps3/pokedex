@@ -1,7 +1,7 @@
 import React, { FunctionComponent, Fragment } from 'react';
 import { cmp } from 'type-comparator';
 
-import Barchart from '../barchart/Barchart';
+import Barchart from '../common/barchart/Barchart';
 import { IStat } from '../../interfaces/pokemon.interface';
 import PokedexTable from '../common/pokedex-table/PokedexTable';
 import PokedexTableCell from '../common/pokedex-table/PokedexTableCell';

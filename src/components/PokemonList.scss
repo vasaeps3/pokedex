@@ -1,0 +1,16 @@
+@media screen and (max-width: 500px) {
+  .pokemon-list {
+    &.container {
+      padding-left: 0;
+      padding-right: 0;
+      >.row {
+        margin-right: 0;
+        margin-left: 0;
+        >div[class*='col-'] {
+          padding-right: 0;
+          padding-left: 0;
+        }
+      }
+    }
+  }
+}

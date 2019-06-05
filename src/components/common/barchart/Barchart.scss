@@ -8,3 +8,8 @@
     border: 1px solid rgba(0, 0, 0, 0.15);
   }
 }
+@media screen and (max-width: 500px) {
+  .barchart {
+    min-width: 200px;
+  }
+}

@@ -5,6 +5,7 @@ import { PokemonImg } from '../common/pokemon-img/PokemonImg';
 import { PokemonCardStats } from './PokemonCardStats';
 import { PokemonCardData } from './PokemonCardData';
 import { IPokemon, ISpecies } from '../../interfaces/pokemon.interface';
+import { Container, Row, Col } from 'react-bootstrap';
 
 interface IAppProps {
   pokemon: IPokemon;
@@ -29,17 +30,21 @@ const PokemonCard: FunctionComponent<IAppProps> = (props) => {
 export default PokemonCard;
 
 const Pokemon: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => (
-  <Fragment>
-    <div className="pokemon-card-info row">
-      <div className="col-12 col-sm-4 col-md-5 col-lg-4 col-xl-5">
+  <Container>
+    <Row className="pokemon-card-info">
+      <Col xs={12} sm={4} md={5} lg={4} xl={5}>
         <PokemonImg sprites={pokemon.sprites} />
-      </div>
-      <div className="col-12 col-sm-8 col-md-7 col-lg-8 col-xl-7">
+      </Col>
+      <Col xs={12} sm={8} md={7} lg={8} xl={7}>
         <PokemonCardData pokemon={pokemon} />
-      </div>
-    </div>
-    <div className="pokemon-card-stats">
-      <PokemonCardStats stats={pokemon.stats} />
-    </div>
-  </Fragment>
+      </Col>
+    </Row>
+    <Row>
+      <Col>
+        <div className="pokemon-card-stats">
+          <PokemonCardStats stats={pokemon.stats} />
+        </div>
+      </Col>
+    </Row>
+  </Container>
 );
