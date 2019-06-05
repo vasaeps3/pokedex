@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import pokemonService from "../../services/pokemon.service";
 import { loadTranslateData } from '../../services/loading.service';
 import { INamedAPIResource, ISpecies, IChainLink, IPokemon, IEvolutionDetails } from '../../interfaces/pokemon.interface';
+import { toast } from 'react-toastify';
 
 
 const language = 'en';
@@ -79,7 +80,9 @@ export const showEvolutionChainNew = (evolution_chain: ISpecies['evolution_chain
         type: SHOW_EVOLUTION_CHAIN,
         payload: { chain },
       });
-    } catch{ }
+    } catch{
+      toast.error('Error loading resources');
+    }
 
     dispatch(hideLoader());
   }

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, Fragment } from 'react';
+import React, { FunctionComponent } from 'react';
 
 import './PokemonCard.scss';
 import { PokemonImg } from '../common/pokemon-img/PokemonImg';
