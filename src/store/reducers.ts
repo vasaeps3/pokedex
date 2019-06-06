@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import filterReducer, { IPokemonFilterState } from "./filter/reducer";
-import paginationReducer, { IPaginationState } from "./pagination/reducer";
-import pokemonPreviewReducer, { IPokemonAPIResourceState } from "./pokemon-preview/reducer";
+import filterReducer, { IPokemonFilterState } from './filter/reducer';
+import paginationReducer, { IPaginationState } from './pagination/reducer';
+import pokemonPreviewReducer, { IPokemonAPIResourceState } from './pokemon-preview/reducer';
 
 
 export default combineReducers({

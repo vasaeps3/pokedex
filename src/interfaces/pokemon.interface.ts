@@ -1,5 +1,4 @@
-import { TypePokemon } from "./type-pokemon.enum";
-
+import { TypePokemon } from './type-pokemon.enum';
 
 export interface IPokemon extends INamedAPIResource {
   id: number;
@@ -93,12 +92,10 @@ export interface ITypePokemonNew {
   };
 }
 
-export interface IEvolutionTrigger extends INamedLangAPIResource { }
-
 export interface ITypeAPI {
-  pokemon: {
+  pokemon: Array<{
     pokemon: INamedAPIResource[];
     slot: number;
-  }[];
+  }>;
   names: INamedLangAPIResource[];
 }

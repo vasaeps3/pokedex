@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-react"
+  ],
+  "rules": {
+    "quotemark": [
+      true,
+      "single",
+      "jsx-double"
+    ],
+    "no-consecutive-blank-lines": [
+      true,
+      2
+    ],
+    "object-literal-sort-keys": false,
+    "jsx-no-lambda": false,
+    "no-submodule-imports": [
+      true,
+      "lodash",
+      "react-toastify"
+    ]
+  }
+}

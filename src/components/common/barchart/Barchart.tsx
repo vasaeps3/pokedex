@@ -21,14 +21,19 @@ const getBarchartStyle = (value: number, maxWight: number): { color: string, val
   }
 
   return { color: '#000', value: 0 };
-}
+};
 
 const Barchart: FunctionComponent<{ value: number }> = ({ value = 0 }) => {
-  const maxWight = 180;
-  const barchartStyle = getBarchartStyle(value, maxWight);
+  const maxWidth = 180;
+  const barchartStyle = getBarchartStyle(value, maxWidth);
+  const styles = {
+    backgroundColor: barchartStyle.color,
+    width: `${Math.round(barchartStyle.value / maxWidth * 10000) / 100}%`,
+  };
+
   return (
     <div className="barchart">
-      <div className="barchart-bar" style={{ backgroundColor: barchartStyle.color, width: `${Math.round(barchartStyle.value / maxWight * 10000) / 100}%` }}></div>
+      <div className="barchart-bar" style={styles} />
     </div>
   );
 };

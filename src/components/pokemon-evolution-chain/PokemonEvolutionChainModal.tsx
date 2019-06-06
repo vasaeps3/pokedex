@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { Modal } from 'react-bootstrap';
 
 import { connect } from 'react-redux';
-import { IState } from '../../store/reducers';
 import { IChainLink } from '../../interfaces/pokemon.interface';
+import { hideEvolutionChain } from '../../store/pokemon-preview/actions';
+import { IState } from '../../store/reducers';
 import PokemonEvolutionChain from './PokemonEvolutionChain';
-import { hideEvolutionChain } from '../../store/pokemon-preview/actions.chain';
-
 
 interface IAppProps {
   chain: IChainLink | null;
@@ -15,11 +14,7 @@ interface IAppProps {
 
 class PokemonEvolutionChainModal extends Component<IAppProps> {
 
-  private handleClose = () => {
-    this.props.hideEvolutionChain();
-  }
-
-  render() {
+  public render() {
     const { chain } = this.props;
     if (!chain) {
       return null;
@@ -27,16 +22,20 @@ class PokemonEvolutionChainModal extends Component<IAppProps> {
 
     return (
       <Modal show={true} onHide={this.handleClose} size="xl">
-        <Modal.Header closeButton>
+        <Modal.Header closeButton={true}>
           <Modal.Title>Evolution chain</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <PokemonEvolutionChain chain={chain} />
         </Modal.Body>
       </Modal>
-    )
+    );
   }
-};
+
+  private handleClose = () => {
+    this.props.hideEvolutionChain();
+  }
+}
 
 const mapStateToProps = (state: IState) => ({ chain: state.pokemonPreview.chain });
 const mapDispatchToProps = { hideEvolutionChain };

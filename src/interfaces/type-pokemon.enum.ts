@@ -23,7 +23,7 @@ export enum TypePokemon {
 
 type IColorTypePokemon = {
   [k in TypePokemon]?: string;
-}
+};
 
 export const ColorTypePokemon: IColorTypePokemon = {
   [TypePokemon.NORMAL]: '#aa9',
@@ -46,4 +46,4 @@ export const ColorTypePokemon: IColorTypePokemon = {
   [TypePokemon.FAIRY]: '#e9e',
   [TypePokemon.UNKNOWN]: '#fff',
   [TypePokemon.SHADOW]: '#a3a',
-}
+};

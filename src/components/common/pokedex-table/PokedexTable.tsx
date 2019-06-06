@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 
 import './PokemonTable.scss';
 
+
 interface IPokedexTableProps {
   className?: string;
 }

@@ -1,8 +1,7 @@
-import { Reducer, Action } from "redux";
+import { Action, Reducer } from 'redux';
 
-import { INamedAPIResource } from "../../interfaces/pokemon.interface";
-import { SET_TYPES_OPTION, SET_POKEMON_LIST_BY_FILTER } from "./actions";
-
+import { INamedAPIResource } from '../../interfaces/pokemon.interface';
+import { SET_POKEMON_LIST_BY_FILTER, SET_TYPES_OPTION } from './actions';
 
 export interface IPokemonFilterState {
   isLoading: boolean;
@@ -20,7 +19,7 @@ const INITIAL_STATE = {
   isUseFilter: false,
   typeList: [],
   pokemonList: [],
-}
+};
 
 const filterReducer: Reducer<IPokemonFilterState, IPokemonFilterAction> = (state = INITIAL_STATE, action) => {
   const { payload } = action;
@@ -30,16 +29,15 @@ const filterReducer: Reducer<IPokemonFilterState, IPokemonFilterAction> = (state
       return {
         ...state,
         typeList: payload.typeList,
-      }
+      };
     case SET_POKEMON_LIST_BY_FILTER:
       return {
         ...state,
         pokemonList: payload.pokemonList,
         isUseFilter: payload.isUseFilter,
-      }
+      };
     default:
       return state;
   }
-}
+};
 export default filterReducer;
-

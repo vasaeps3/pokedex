@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import "react-toastify/dist/ReactToastify.css";
-
-import Header from './components/layout/Header';
-import PokedexPage from './components/pokedex/PokedexPage';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import Header from './components/header/Header';
+import PokedexPage from './components/pokedex/PokedexPage';
 
 
 const App: FunctionComponent = () => {
@@ -16,6 +16,6 @@ const App: FunctionComponent = () => {
       </div>
     </div>
   );
-}
+};
 
 export default App;

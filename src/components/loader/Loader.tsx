@@ -1,9 +1,9 @@
-import React, { FunctionComponent, Fragment } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-import './Loader.scss';
 import { IState } from '../../store/reducers';
+import './Loader.scss';
 
 
 interface IAppProps {
@@ -18,5 +18,8 @@ const Loader: FunctionComponent<IAppProps> = (props) => {
   );
 };
 
-const mapStateToProps = (state: IState) => ({ isLoading: state.pokemonPreview.isLoading })
-export default connect(mapStateToProps)(Loader);
+const mapStateToProps = (state: IState) => ({ isLoading: state.pokemonPreview.isLoading });
+
+export default connect(
+  mapStateToProps,
+)(Loader);

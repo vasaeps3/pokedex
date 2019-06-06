@@ -1,22 +1,25 @@
-import apiService from "./api.service";
-import { INamedAPIResource, ITypeAPI } from "../interfaces/pokemon.interface";
+import { INamedAPIResource, ITypeAPI } from '../interfaces/pokemon.interface';
+import { ApiService, apiService as apiServiceInstance } from './api.service';
 
 
-const getTypes = async () => {
-  const { data } = await apiService.get<{ results: INamedAPIResource[] }>('/type');
+export class TypeService {
 
-  return data.results;
+  constructor(
+    private apiService: ApiService,
+  ) { }
+
+  public async getTypes(): Promise<INamedAPIResource[]> {
+    const { data } = await this.apiService.get<{ results: INamedAPIResource[] }>('/type');
+
+    return data.results;
+  }
+
+  public async getPokemonsByType(type: INamedAPIResource) {
+    const { data } = await this.apiService.get<ITypeAPI>(type.url, { useBaseURL: false });
+
+    return data.pokemon;
+  }
+
 }
 
-const getPokemonsByType = async (type: INamedAPIResource) => {
-  const { data } = await apiService.get<ITypeAPI>(type.url, { useBaseURL: false });
-
-  return data.pokemon;
-}
-
-const typeService = {
-  getTypes,
-  getPokemonsByType,
-}
-
-export default typeService;
+export const typeService = new TypeService(apiServiceInstance);

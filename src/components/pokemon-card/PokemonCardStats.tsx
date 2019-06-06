@@ -1,8 +1,8 @@
-import React, { FunctionComponent, Fragment } from 'react';
+import React, { Fragment, FunctionComponent } from 'react';
 import { cmp } from 'type-comparator';
 
-import Barchart from '../common/barchart/Barchart';
 import { IStat } from '../../interfaces/pokemon.interface';
+import Barchart from '../common/barchart/Barchart';
 import PokedexTable from '../common/pokedex-table/PokedexTable';
 import PokedexTableCell from '../common/pokedex-table/PokedexTableCell';
 import PokedexTableRow from '../common/pokedex-table/PokedexTableRow';
@@ -15,13 +15,13 @@ const abbreviations: { [key: string]: string } = {
   'special-defense': 'Sp. Atk',
   'special-attack': 'Sp. Def',
   'speed': 'Speed',
-}
+};
 const array = ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'];
 
 export const PokemonCardStats: FunctionComponent<{ stats: IStat[] }> = ({ stats }) => {
 
   const comparator = cmp()
-    .map(x => array.indexOf(x.stat.name))
+    .map((x) => array.indexOf(x.stat.name))
     .asc();
 
   stats.sort(comparator);
@@ -33,7 +33,7 @@ export const PokemonCardStats: FunctionComponent<{ stats: IStat[] }> = ({ stats 
         {stats.map((s, idx) => <PokemonCardStatsCell key={idx} stat={s} />)}
       </PokedexTable>
     </div>
-  )
+  );
 };
 
 const PokemonCardStatsCell = ({ stat }: { stat: IStat }) => (
@@ -47,4 +47,3 @@ const PokemonCardStatsCell = ({ stat }: { stat: IStat }) => (
     </PokedexTableRow>
   </Fragment>
 );
-

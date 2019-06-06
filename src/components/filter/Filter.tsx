@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SelectAsync from 'react-select';
 
-import { IPokemonFilterState } from '../../store/filter/reducer';
-import { loadTypes, setFilter } from '../../store/filter/actions';
 import { INamedAPIResource } from '../../interfaces/pokemon.interface';
+import { loadTypes, setFilter } from '../../store/filter/actions';
+import { IPokemonFilterState } from '../../store/filter/reducer';
 
 
 export interface IAppProps {
@@ -14,26 +14,26 @@ export interface IAppProps {
 }
 
 class Filter extends Component<IAppProps> {
-  state = {
+  public state = {
     selectedOption: null,
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     this.props.loadTypes();
   }
 
-  handleChange = (selectedOption: any) => {
+  public handleChange = (selectedOption: any) => {
     this.setState({ selectedOption });
     this.props.setFilter(selectedOption);
   }
 
-  render() {
+  public render() {
     const { filter } = this.props;
     const { selectedOption } = this.state;
-    const options = filter.typeList.map(o => ({
+    const options = filter.typeList.map((o) => ({
       ...o,
       value: o.url,
-      label: o.title
+      label: o.title,
     }));
     return (
       <SelectAsync
@@ -47,10 +47,14 @@ class Filter extends Component<IAppProps> {
   }
 }
 
+
 const mapStateToProps = ({ filter }: { filter: IPokemonFilterState }) => ({ filter });
 const mapDispatchToProps = {
   loadTypes,
   setFilter,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Filter);

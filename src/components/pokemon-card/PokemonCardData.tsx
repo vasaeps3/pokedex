@@ -1,18 +1,19 @@
 import React, { FunctionComponent } from 'react';
 
-import PokemonWeight from './PokemonWeight';
-import PokemonHeight from './PokemonHeight';
-import { PokemonType } from '../common/pokemon-type/PokemonType';
-import PokedexTable from '../common/pokedex-table/PokedexTable';
-import PokedexTableRow from '../common/pokedex-table/PokedexTableRow';
-import PokedexTableCell from '../common/pokedex-table/PokedexTableCell';
-import { PokemonAbility } from '../common/pokemon-ability/PokemonAbility';
-import { toMultipleSymbol } from '../../utils/helper';
 import { IPokemon } from '../../interfaces/pokemon.interface';
+import PokedexTable from '../common/pokedex-table/PokedexTable';
+import PokedexTableCell from '../common/pokedex-table/PokedexTableCell';
+import PokedexTableRow from '../common/pokedex-table/PokedexTableRow';
+import { PokemonAbility, PokemonHeight, PokemonWeight } from '../common/pokemon';
+import { PokemonType } from '../common/pokemon/PokemonType';
 
 
 export const PokemonCardData: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => {
-  const pokedex_number = pokemon.species.pokedex_numbers.find(n => n.pokedex.name === 'national');
+  const pokedexNumber = pokemon.species.pokedex_numbers.find((n) => n.pokedex.name === 'national');
+  let nationalNumber = '';
+  if (pokedexNumber) {
+    nationalNumber = `${pokedexNumber.entry_number}`.padStart(3, '0');
+  }
   return (
     <div className="pokemon-card-section">
       <h5>Pokédex data</h5>
@@ -25,12 +26,14 @@ export const PokemonCardData: FunctionComponent<{ pokemon: IPokemon }> = ({ poke
         </PokedexTableRow>
         <PokedexTableRow>
           <PokedexTableCell>National №</PokedexTableCell>
-          <PokedexTableCell>{pokedex_number && toMultipleSymbol('' + pokedex_number.entry_number, 3)}</PokedexTableCell>
+          <PokedexTableCell>{nationalNumber}</PokedexTableCell>
         </PokedexTableRow>
         <PokedexTableRow>
           <PokedexTableCell>Type</PokedexTableCell>
           <PokedexTableCell>
-            <div className="pokemon-card-types-list">{pokemon.types.map((t, idx) => <PokemonType key={idx} type={t.type} />)}</div>
+            <div className="pokemon-card-types-list">
+              {pokemon.types.map((t, idx) => <PokemonType key={idx} type={t.type} />)}
+            </div>
           </PokedexTableCell>
         </PokedexTableRow>
         <PokedexTableRow>
@@ -52,10 +55,12 @@ export const PokemonCardData: FunctionComponent<{ pokemon: IPokemon }> = ({ poke
         <PokedexTableRow>
           <PokedexTableCell>Abilities</PokedexTableCell>
           <PokedexTableCell>
-            <div className="pokemon-card-ability-list">{pokemon.abilities.map((a, idx) => <PokemonAbility key={idx} ability={a} />)}</div>
+            <div className="pokemon-card-ability-list">
+              {pokemon.abilities.map((a, idx) => <PokemonAbility key={idx} ability={a} />)}
+            </div>
           </PokedexTableCell>
         </PokedexTableRow>
       </PokedexTable>
     </div >
-  )
+  );
 };

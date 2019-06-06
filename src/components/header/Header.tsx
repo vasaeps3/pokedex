@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import { Navbar, Container, Row, Col } from 'react-bootstrap';
+import { Col, Container, Navbar, Row } from 'react-bootstrap';
 
-import './Header.scss';
 import Filter from '../filter/Filter';
+import './Header.scss';
 
 
 const Header: FunctionComponent = () => {

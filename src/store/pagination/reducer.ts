@@ -1,5 +1,5 @@
-import { Reducer } from "redux";
-import { SET_PAGINATION } from "./actions";
+import { Reducer } from 'redux';
+import { SET_PAGINATION } from './actions';
 
 export interface IPaginationState {
   totalPages: number;
@@ -23,7 +23,7 @@ const INITIAL_STATE = {
   startIndex: 0,
   endIndex: 0,
   pages: [],
-}
+};
 
 const paginationReducer: Reducer<IPaginationState, any> = (state = INITIAL_STATE, action) => {
   const { payload } = action;
@@ -32,9 +32,10 @@ const paginationReducer: Reducer<IPaginationState, any> = (state = INITIAL_STATE
       return {
         ...state,
         ...payload,
-      }
+      };
     default:
       return state;
   }
-}
+};
+
 export default paginationReducer;

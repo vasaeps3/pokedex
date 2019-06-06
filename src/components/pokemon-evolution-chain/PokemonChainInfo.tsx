@@ -1,9 +1,8 @@
 import React, { FunctionComponent } from 'react';
 
+import { IEvolutionDetails, IPokemon } from '../../interfaces/pokemon.interface';
+import { PokemonImage, PokemonType } from '../common/pokemon';
 import './PokemonChainInfo.scss';
-import { PokemonImg } from '../common/pokemon-img/PokemonImg';
-import { PokemonType } from '../common/pokemon-type/PokemonType';
-import { IPokemon, IEvolutionDetails } from '../../interfaces/pokemon.interface';
 
 
 interface IAppProps {
@@ -38,7 +37,7 @@ const PokemonChainInfo: FunctionComponent<IAppProps> = ({ pokemon, evolutionDeta
   return (
     <div className="pokemon-info-card">
       {detail}
-      <div className="pokemon-info-card-img"><PokemonImg sprites={pokemon.sprites} /></div>
+      <div className="pokemon-info-card-img"><PokemonImage sprites={pokemon.sprites} /></div>
       <div className="pokemon-info-card-name">{pokemon.species.title}</div>
       <div className="pokemon-info-card-types-list">
         {pokemon.types.map((t, idx) => <PokemonType type={t.type} key={idx} />)}

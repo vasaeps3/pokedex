@@ -1,1 +1,0 @@
-export const toMultipleSymbol = (number: string, multiple = 2, symbol = '0') => (symbol.repeat(multiple) + number).slice(-multiple);

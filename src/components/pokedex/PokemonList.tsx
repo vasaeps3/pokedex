@@ -1,37 +1,38 @@
+import isEqual from 'lodash/isEqual';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { isEqual } from 'lodash';
 
-
-import './PokemonList.scss';
-import PokemonCard from './pokemon-card/PokemonCard';
-import { IPokemonAPIResourceState } from '../store/pokemon-preview/reducer';
-import { showEvolutionChainNew, getPokemonsFull } from '../store/pokemon-preview/actions.chain';
-import { INamedAPIResource, ISpecies, IPokemon } from '../interfaces/pokemon.interface';
 import { Container, Row } from 'react-bootstrap';
+import { INamedAPIResource, IPokemon, ISpecies } from '../../interfaces/pokemon.interface';
+import { getPokemonsFull, showEvolutionChainNew } from '../../store/pokemon-preview/actions';
+import { IPokemonAPIResourceState } from '../../store/pokemon-preview/reducer';
+import PokemonCard from '../pokemon-card/PokemonCard';
+import './PokemonList.scss';
 
 
 export interface IAppProps {
   getPokemonsFull: (pokemonsShort: INamedAPIResource[]) => void;
-  showEvolutionChainNew: (evolution_chain: ISpecies['evolution_chain']) => void;
+  showEvolutionChainNew: (evolutionChain: ISpecies['evolution_chain']) => void;
   pokemonsShort: INamedAPIResource[];
   pokemonsFull: IPokemon[];
 }
 
 class PokemonList extends Component<IAppProps> {
 
-  componentDidUpdate(prevProps: IAppProps) {
+  public componentDidUpdate(prevProps: IAppProps) {
     if (!isEqual(prevProps.pokemonsShort, this.props.pokemonsShort)) {
       this.props.getPokemonsFull(this.props.pokemonsShort);
     }
   }
 
-  private handleClick = (evolution_chain: ISpecies['evolution_chain']) => {
-    this.props.showEvolutionChainNew(evolution_chain);
-  }
-
   public render() {
-    const pokemonList = this.props.pokemonsFull.map(pokemon => <PokemonCard key={pokemon.name} pokemon={pokemon} handleClick={this.handleClick} />)
+    const pokemonList = this.props.pokemonsFull.map((pokemon) => (
+      <PokemonCard
+        key={pokemon.name}
+        pokemon={pokemon}
+        handleClick={this.handleClick}
+      />
+    ));
 
     return (
       <Container className="pokemon-list">
@@ -39,7 +40,11 @@ class PokemonList extends Component<IAppProps> {
           {pokemonList}
         </Row>
       </Container>
-    )
+    );
+  }
+
+  private handleClick = (evolutionChain: ISpecies['evolution_chain']) => {
+    this.props.showEvolutionChainNew(evolutionChain);
   }
 }
 

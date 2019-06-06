@@ -1,10 +1,10 @@
+import isEqual from 'lodash/isEqual';
 import React, { Component } from 'react';
-import { isEqual } from 'lodash';
 
-import PokemonList from '../PokemonList';
-import Paginations from '../common/pagination/Pagination';
-import { IPaginationState } from '../../store/pagination/reducer';
 import { INamedAPIResource } from '../../interfaces/pokemon.interface';
+import { IPaginationState } from '../../store/pagination/reducer';
+import Paginator from '../common/paginator/Paginator';
+import PokemonList from './PokemonList';
 
 
 export interface IAppProps {
@@ -16,7 +16,7 @@ export interface IAppProps {
 
 export default class PokedexPageByFilter extends Component<IAppProps> {
 
-  componentDidUpdate(prevProps: IAppProps) {
+  public componentDidUpdate(prevProps: IAppProps) {
     if (!isEqual(this.props.pagination, prevProps.pagination)) {
       const { pagination } = this.props;
       this.props.showPokemons(this.props.pokemonList.slice(pagination.startIndex, pagination.endIndex + 1));
@@ -26,9 +26,9 @@ export default class PokedexPageByFilter extends Component<IAppProps> {
   public render() {
     return (
       <div>
-        <Paginations count={this.props.pokemonCount}></Paginations>
+        <Paginator count={this.props.pokemonCount} />
         <PokemonList />
-        <Paginations count={this.props.pokemonCount}></Paginations>
+        <Paginator count={this.props.pokemonCount} />
       </div>
     );
   }
