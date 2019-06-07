@@ -9,7 +9,23 @@ export interface IPokemon extends INamedAPIResource {
   height: number;
   weight: number;
   stats: IStat[];
+  moves: IPokemonMove[];
 }
+
+export interface IPokemonMove {
+  move: INamedAPIResource;
+  version_group_details: IPokemonMoveVersion[];
+}
+
+export interface IPokemonMoveVersion {
+  level_learned_at: number;
+  move_learn_method: INamedAPIResource;
+  version_group: INamedAPIResource;
+}
+
+// export interface IMoveLearnMethod extends INamedLangAPIResource {
+//   // version_groups
+// }
 
 export interface IName {
   name: string;

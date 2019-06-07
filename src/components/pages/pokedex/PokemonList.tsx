@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Container, Row } from 'react-bootstrap';
-import { INamedAPIResource, IPokemon, ISpecies } from '../../interfaces/pokemon.interface';
-import { getPokemonsFull, showEvolutionChainNew } from '../../store/pokemon-preview/actions';
-import { IPokemonAPIResourceState } from '../../store/pokemon-preview/reducer';
-import PokemonCard from '../pokemon-card/PokemonCard';
+import { INamedAPIResource, IPokemon, ISpecies } from '../../../interfaces/pokemon.interface';
+import { getPokemonsFull, showEvolutionChainNew } from '../../../store/pokemon-preview/actions';
+import { IPokemonAPIResourceState } from '../../../store/pokemon-preview/reducer';
+import PokemonCard from '../../pokemon-card/PokemonCard';
 import './PokemonList.scss';
 
 

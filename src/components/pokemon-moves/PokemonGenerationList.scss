@@ -1,0 +1,9 @@
+.generation-button-list {
+  &.btn-group {
+    flex-wrap: wrap;
+    .active {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+  }
+}

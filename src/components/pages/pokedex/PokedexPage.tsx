@@ -1,18 +1,18 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { INamedAPIResource, ISpecies } from '../../interfaces/pokemon.interface';
-import { IPokemonFilterState } from '../../store/filter/reducer';
-import { IPaginationState } from '../../store/pagination/reducer';
+import { INamedAPIResource, ISpecies } from '../../../interfaces/pokemon.interface';
+import { IPokemonFilterState } from '../../../store/filter/reducer';
+import { IPaginationState } from '../../../store/pagination/reducer';
 import {
   loadCountPokemonList,
   loadPokemonList,
   showEvolutionChainNew,
   showPokemons,
-} from '../../store/pokemon-preview/actions';
-import { IState } from '../../store/reducers';
-import Loader from '../loader/Loader';
-import PokemonEvolutionChainModal from '../pokemon-evolution-chain/PokemonEvolutionChainModal';
+} from '../../../store/pokemon-preview/actions';
+import { IState } from '../../../store/reducers';
+import Loader from '../../loader/Loader';
+import PokemonEvolutionChainModal from '../../pokemon-evolution-chain/PokemonEvolutionChainModal';
 import PokedexPageByFilter from './PokedexPageByFilter';
 import PokedexPageList from './PokedexPageList';
 

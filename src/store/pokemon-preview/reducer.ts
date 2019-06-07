@@ -9,11 +9,13 @@ import {
   SHOW_LOADER,
   SHOW_POKEMONS,
   SHOW_POKEMONS_FULL,
+  POKEMON_DETAILS,
 } from './actions';
 
 export interface IPokemonAPIResourceState {
   pokemonsShort: INamedAPIResource[];
   pokemonsFull: IPokemon[];
+  pokemonDetails: IPokemon | null;
   isLoading: boolean;
   count: number;
   chain: IChainLink | null;
@@ -26,6 +28,7 @@ interface IPokemonAPIResourceAction extends Action {
 const INITIAL_STATE: IPokemonAPIResourceState = {
   pokemonsShort: [],
   pokemonsFull: [],
+  pokemonDetails: null,
   isLoading: false,
   count: 0,
   chain: null,
@@ -35,6 +38,11 @@ const pokemonPreviewReducer: Reducer<IPokemonAPIResourceState, IPokemonAPIResour
   = (state = INITIAL_STATE, action) => {
     const { payload } = action;
     switch (action.type) {
+      case POKEMON_DETAILS:
+        return {
+          ...state,
+          pokemonDetails: payload.pokemonDetails,
+        };
       case SHOW_LOADER:
         return {
           ...state,

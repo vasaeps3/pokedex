@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { Dispatch } from 'redux';
 
-import { INamedAPIResource, ISpecies } from '../../interfaces/pokemon.interface';
+import { INamedAPIResource, ISpecies, IPokemon } from '../../interfaces/pokemon.interface';
 import { pokemonService } from '../../services/pokemon.service';
 
 
@@ -12,6 +12,7 @@ export const SET_POKEMON_COUNT = 'SET_POKEMON_COUNT';
 export const SHOW_POKEMONS_FULL = 'SHOW_POKEMONS_FULL';
 export const SHOW_EVOLUTION_CHAIN = 'SHOW_EVOLUTION_CHAIN';
 export const HIDE_EVOLUTION_CHAIN = 'HIDE_EVOLUTION_CHAIN';
+export const POKEMON_DETAILS = 'POKEMON_DETAILS';
 
 export const showLoader = () => ({ type: SHOW_LOADER });
 export const hideLoader = () => ({ type: HIDE_LOADER });
@@ -21,13 +22,31 @@ export const showPokemons = (pokemonsShort: INamedAPIResource[]) => ({
   payload: { pokemonsShort },
 });
 
+export const loadPokemonDetails = (pokemonName: IPokemon['name']) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(showLoader());
+    try {
+      const pokemon = await pokemonService.loadPokemonByName(pokemonName);
+      dispatch({
+        type: POKEMON_DETAILS,
+        payload: {
+          pokemonDetails: pokemon,
+        },
+      });
+    } catch {
+      toast.error('Error loading resources');
+    }
+    dispatch(hideLoader());
+  };
+};
+
 export const loadPokemonList = (offset = 0, limit = 10) => {
-  return async (dispath: Dispatch) => {
-    dispath(showLoader());
+  return async (dispatch: Dispatch) => {
+    dispatch(showLoader());
     const pokemons = await pokemonService.getPokemonList(offset, limit);
 
-    dispath(hideLoader());
-    dispath({
+    dispatch(hideLoader());
+    dispatch({
       type: SHOW_POKEMONS,
       payload: {
         pokemonsShort: pokemons.results,

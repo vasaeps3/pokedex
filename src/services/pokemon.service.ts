@@ -7,6 +7,8 @@ import {
   LoadTranslationsService,
   loadTranslationsService as loadTranslationsServiceInstance,
 } from './load-translations.service';
+import { IGeneration } from '../interfaces/generation.interface';
+import { NamedAPIResourceList } from '../interfaces/base.interface';
 
 
 export class PokemonService {
@@ -16,6 +18,19 @@ export class PokemonService {
     private apiService: ApiService,
     private loadTranslationsService: LoadTranslationsService,
   ) { }
+
+  public async getGenerationList(): Promise<IGeneration[]> {
+    const { data: generationRecource } = await this.apiService.get<NamedAPIResourceList<IGeneration>>(`/generation`);
+    const generationList = await Promise.all(generationRecource.results.map((g) => this.getGenerationByName(g.name)));
+
+    return generationList;
+  }
+
+  public async getGenerationByName(genarationName: string): Promise<IGeneration> {
+    const { data: generation } = await this.apiService.get<IGeneration>(`/generation/${genarationName}`);
+
+    return generation;
+  }
 
   public async getPokemonByName(pokemonName: IPokemon['name']): Promise<IPokemon> {
     const { data: pokemon } = await this.apiService.get<IPokemon>(`/pokemon/${pokemonName}`);

@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Col, Container, Row } from 'react-bootstrap';
 import { IPokemon, ISpecies } from '../../interfaces/pokemon.interface';
@@ -22,15 +23,15 @@ const PokemonCard: FunctionComponent<IAppProps> = (props) => {
   const { pokemon } = props;
   return (
     <Col xs={12} lg={6}>
-      <div className="pokemon-card" onClick={handleClick}>
+      <Link to={pokemon.name} className="pokemon-card">
         <Pokemon pokemon={pokemon} />
-      </div>
+      </Link>
     </Col>
   );
 };
 export default PokemonCard;
 
-const Pokemon: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => (
+export const Pokemon: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => (
   <Container>
     <Row className="pokemon-card-info">
       <Col xs={12} sm={4} md={5} lg={4} xl={5}>

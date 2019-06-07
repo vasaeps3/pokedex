@@ -4,7 +4,13 @@
   box-shadow: 2px 2px 10px 1px rgba(206, 210, 214, 1);
   padding: 2rem;
   height: calc(100% - 2rem);
+  display: block;
   cursor: pointer;
+  color: inherit;
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
   &-info {
     >div {
       display: flex;
@@ -55,7 +61,7 @@
     >.container {
       padding-right: 0;
       padding-left: 0;
-      >.row{
+      >.row {
         margin-left: 0;
         margin-right: 0;
       }
