@@ -15,6 +15,7 @@ interface IAppProps {
 
 interface IAppState {
   generationList: IGeneration[];
+  generation: IGeneration | null;
   activeGeneration: string | null;
 }
 
@@ -22,6 +23,7 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
   public state: IAppState = {
     generationList: [],
     activeGeneration: null,
+    generation: null,
   };
 
   public async componentDidMount() {
@@ -50,7 +52,7 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
             </Col>
           </Row>
           <Row>
-            <PokemonMoviesList />
+            <PokemonMoviesList generation={this.state.generation} />
           </Row>
         </Container>
       </Fragment>
@@ -64,16 +66,16 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
 
   private filterMovesList = (activeGeneration: string) => {
     const generation = this.state.generationList.find((g) => g.name === activeGeneration);
+    this.setState({ generation });
+
     if (!generation) {
       return;
     }
     console.log(generation);
     const aaaa = filter(this.props.moves, (move) => {
       return move.version_group_details.find((vg) => {
-
-        return generation.version_groups.find((g) => g.name === vg.version_group.name);
+        return !!generation.version_groups.find((g) => g.name === vg.version_group.name);
       });
-      // return true;
     });
     console.log(aaaa);
     // console.log(this.state.generationList);
