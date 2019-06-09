@@ -23,9 +23,17 @@ export interface IPokemonMoveVersion {
   version_group: INamedAPIResource;
 }
 
-// export interface IMoveLearnMethod extends INamedLangAPIResource {
-//   // version_groups
-// }
+export interface IMoveLearnMethod extends INamedLangAPIResource {
+  descriptions: Array<{
+    description: string;
+    language: INamedAPIResource;
+  }>;
+}
+
+export interface IMovesLearntBy {
+  leartMethod: INamedAPIResource;
+  move: INamedAPIResource[];
+}
 
 export interface IName {
   name: string;

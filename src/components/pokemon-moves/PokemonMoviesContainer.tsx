@@ -1,4 +1,3 @@
-import filter from 'lodash/filter';
 import React, { Component, Fragment } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 
@@ -6,7 +5,7 @@ import { IGeneration } from '../../interfaces/generation.interface';
 import { IPokemonMove } from '../../interfaces/pokemon.interface';
 import { pokemonService } from '../../services/pokemon.service';
 import PokemonGenerationList from './PokemonGenerationList';
-import PokemonMoviesList from './PokemonMoviesList';
+import PokemonMoviesGroupList from './PokemonMoviesGroupList';
 
 
 interface IAppProps {
@@ -17,6 +16,7 @@ interface IAppState {
   generationList: IGeneration[];
   generation: IGeneration | null;
   activeGeneration: string | null;
+  movesList: IPokemonMove[];
 }
 
 export default class PokemonMoviesContainer extends Component<IAppProps> {
@@ -24,10 +24,12 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
     generationList: [],
     activeGeneration: null,
     generation: null,
+    movesList: [],
   };
 
   public async componentDidMount() {
     const generationList: IGeneration[] = await pokemonService.getGenerationList();
+
     this.setState({
       generationList,
     });
@@ -35,6 +37,7 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
 
   public render() {
     const { generationList, activeGeneration } = this.state;
+
     if (!generationList.length) {
       return null;
     }
@@ -52,7 +55,9 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
             </Col>
           </Row>
           <Row>
-            <PokemonMoviesList generation={this.state.generation} />
+            <Col>
+              <PokemonMoviesGroupList generation={this.state.generation} movesList={this.state.movesList} />
+            </Col>
           </Row>
         </Container>
       </Fragment>
@@ -60,25 +65,34 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
   }
 
   private chooseGeneration = (activeGeneration: string) => {
-    this.filterMovesList(activeGeneration);
-    this.setState({ activeGeneration });
+    const generation = this.getGeneration(activeGeneration);
+    const movesList = generation && this.filterMovesList(generation);
+
+    this.setState({
+      generation,
+      activeGeneration,
+      movesList,
+    });
   }
 
-  private filterMovesList = (activeGeneration: string) => {
-    const generation = this.state.generationList.find((g) => g.name === activeGeneration);
-    this.setState({ generation });
+  private getGeneration = (activeGeneration: string): IGeneration | null => {
+    const generation = this.state.generationList.find((g) => g.name === activeGeneration) || null;
 
+    return generation;
+  }
+
+  private filterMovesList = (generation: IGeneration): IPokemonMove[] => {
     if (!generation) {
-      return;
+      return [];
     }
-    console.log(generation);
-    const aaaa = filter(this.props.moves, (move) => {
+
+    const movesList: IPokemonMove[] = this.props.moves.filter((move) => {
       return move.version_group_details.find((vg) => {
         return !!generation.version_groups.find((g) => g.name === vg.version_group.name);
       });
-    });
-    console.log(aaaa);
-    // console.log(this.state.generationList);
+    }) || [];
+
+    return movesList;
   }
 
 }

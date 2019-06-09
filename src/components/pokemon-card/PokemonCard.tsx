@@ -16,9 +16,9 @@ interface IAppProps {
 
 const PokemonCard: FunctionComponent<IAppProps> = (props) => {
 
-  const handleClick = () => {
-    props.handleClick(pokemon.species.evolution_chain);
-  };
+  // const handleClick = () => {
+  //   props.handleClick(pokemon.species.evolution_chain);
+  // };
 
   const { pokemon } = props;
   return (
