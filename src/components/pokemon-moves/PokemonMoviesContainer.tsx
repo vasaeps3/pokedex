@@ -31,7 +31,7 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
 
   public async componentDidMount() {
     const generationList: IGeneration[] = await pokemonService.getGenerationList();
-    await Promise.all(generationList.map(g => pokemonService.loadTranslateVersionGroups(g)));
+    await Promise.all(generationList.map((g) => pokemonService.loadTranslateVersionGroups(g)));
 
     this.setState({
       isLoading: false,

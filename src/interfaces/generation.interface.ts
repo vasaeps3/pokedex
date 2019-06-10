@@ -1,4 +1,4 @@
-import { INamedLangAPIResource, INamedAPIResource } from './base.interface';
+import { INamedAPIResource, INamedLangAPIResource } from './base.interface';
 
 
 export interface IGeneration extends INamedLangAPIResource {

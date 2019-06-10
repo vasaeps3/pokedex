@@ -1,14 +1,21 @@
 import { asc, map } from 'type-comparator';
 
 import config from '../env';
-import { IChainLink, IEvolutionDetails, IPokemon, ISpecies, IMoveLearnMethod, IMove } from '../interfaces/pokemon.interface';
+import { INamedAPIResource, INamedAPIResourceList, INamedLangAPIResource } from '../interfaces/base.interface';
+import { IGeneration, IVersionGroup } from '../interfaces/generation.interface';
+import {
+  IChainLink,
+  IEvolutionDetails,
+  IMove,
+  IMoveLearnMethod,
+  IPokemon,
+  ISpecies,
+} from '../interfaces/pokemon.interface';
 import { ApiService, apiService as apiServiceInstance } from './api.service';
 import {
   LoadTranslationsService,
   loadTranslationsService as loadTranslationsServiceInstance,
 } from './load-translations.service';
-import { IGeneration, IVersionGroup } from '../interfaces/generation.interface';
-import { NamedAPIResourceList, INamedAPIResource, INamedLangAPIResource } from '../interfaces/base.interface';
 
 
 export class PokemonService {
@@ -38,7 +45,7 @@ export class PokemonService {
   }
 
   public async getGenerationList(): Promise<IGeneration[]> {
-    const { data: generationRecource } = await this.apiService.get<NamedAPIResourceList<IGeneration>>(`/generation`);
+    const { data: generationRecource } = await this.apiService.get<INamedAPIResourceList<IGeneration>>(`/generation`);
     const generationList = await Promise.all(generationRecource.results.map((g) => this.getGenerationByName(g.name)));
 
     return generationList;
@@ -55,10 +62,6 @@ export class PokemonService {
 
     return move;
   }
-
-  // private loadVersionGroupsTranslate = (generation: IGeneration) => {
-  //   return Promise.all(generation.version_groups.map(v => this.loadTranslationsService.loadTranslateData(v)));
-  // }
 
   public async getGenerationByName(genarationName: string): Promise<IGeneration> {
     const { data: generation } = await this.apiService.get<IGeneration>(`/generation/${genarationName}`);

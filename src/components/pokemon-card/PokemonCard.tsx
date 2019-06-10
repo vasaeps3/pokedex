@@ -18,7 +18,7 @@ const PokemonCard: FunctionComponent<IAppProps> = (props) => {
 
   return (
     <Col xs={12} lg={6}>
-      <Link to={pokemon.name} className="pokemon-card">
+      <Link to={pokemon.name} className="pokemon-card" target="_blank">
         <Pokemon pokemon={pokemon} />
       </Link>
     </Col>

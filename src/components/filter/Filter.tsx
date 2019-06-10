@@ -11,6 +11,7 @@ export interface IAppProps {
   filter: IPokemonFilterState;
   loadTypes: () => void;
   setFilter: (types: INamedAPIResource) => void;
+  disabled: boolean;
 }
 
 class Filter extends Component<IAppProps> {
@@ -42,6 +43,7 @@ class Filter extends Component<IAppProps> {
         onChange={this.handleChange}
         options={options}
         isClearable={true}
+        isDisabled={this.props.disabled}
       />
     );
   }

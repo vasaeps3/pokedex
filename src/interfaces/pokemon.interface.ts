@@ -1,4 +1,4 @@
-import { INamedAPIResource, INamedLangAPIResource, IName } from './base.interface';
+import { IName, INamedAPIResource, INamedLangAPIResource } from './base.interface';
 import { TypePokemon } from './type-pokemon.enum';
 
 

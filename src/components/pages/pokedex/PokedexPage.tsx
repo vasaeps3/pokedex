@@ -12,7 +12,6 @@ import {
   showPokemons,
 } from '../../../store/pokemon-preview/actions';
 import { IState } from '../../../store/reducers';
-import Loader from '../../loader/Loader';
 import PokedexPageByFilter from './PokedexPageByFilter';
 import PokedexPageList from './PokedexPageList';
 

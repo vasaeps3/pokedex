@@ -1,17 +1,18 @@
 import React, { FunctionComponent } from 'react';
 import { Col, Container, Navbar, Row } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 
 import Filter from '../filter/Filter';
 import './Header.scss';
 
 
-const Header: FunctionComponent = () => {
+const Header: FunctionComponent = (props: any) => {
   return (
     <Navbar bg="dark" variant="dark" sticky="top" className="pokedex-header">
       <Container>
         <Row>
           <Col xs={12} md={9}>
-            <Filter />
+            <Filter disabled={props.location.pathname !== '/'} />
           </Col>
           <Col xs={12} md={3}>
             <Navbar.Text>Filter by type</Navbar.Text>
@@ -22,4 +23,4 @@ const Header: FunctionComponent = () => {
   );
 };
 
-export default Header;
+export default withRouter((props) => <Header {...props} />);

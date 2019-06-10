@@ -1,4 +1,4 @@
-export interface NamedAPIResourceList<T> {
+export interface INamedAPIResourceList<T> {
   count: number;
   results: T[];
 }

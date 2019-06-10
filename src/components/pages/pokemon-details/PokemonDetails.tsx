@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 
 import { IPokemon } from '../../../interfaces/pokemon.interface';
 import { pokemonService } from '../../../services/pokemon.service';
@@ -10,6 +10,7 @@ import PokemonMoviesContainer from '../../pokemon-moves/PokemonMoviesContainer';
 
 interface IAppState {
   pokemon: IPokemon | null;
+  error: boolean;
 }
 
 export interface IAppProps extends RouteComponentProps<{ pokemonName: string }> { }
@@ -17,6 +18,7 @@ export interface IAppProps extends RouteComponentProps<{ pokemonName: string }> 
 export default class PokemonDetails extends Component<IAppProps, IAppState> {
   public state: IAppState = {
     pokemon: null,
+    error: false,
   };
 
   public async componentDidMount() {
@@ -25,12 +27,15 @@ export default class PokemonDetails extends Component<IAppProps, IAppState> {
       const pokemon = await pokemonService.loadPokemonByName(pokemonName);
       this.setState({ pokemon });
     } catch {
-      // TODO!
+      this.setState({ error: true });
     }
   }
 
   public render() {
     const { pokemon } = this.state;
+    if (this.state.error) {
+      return <Redirect to="/" />;
+    }
 
     if (!pokemon) {
       return null;
