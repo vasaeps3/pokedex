@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 
-import { INamedAPIResource } from '../../interfaces/pokemon.interface';
+import { INamedAPIResource } from '../../interfaces/base.interface';
 import { loadTranslationsService } from '../../services/load-translations.service';
 import { typeService } from '../../services/type.service';
 import { hideLoader, SET_POKEMON_COUNT, showLoader } from '../pokemon-preview/actions';

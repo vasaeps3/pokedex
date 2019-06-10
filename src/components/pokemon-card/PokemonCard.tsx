@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Col, Container, Row } from 'react-bootstrap';
-import { IPokemon, ISpecies } from '../../interfaces/pokemon.interface';
+import { IPokemon } from '../../interfaces/pokemon.interface';
 import { PokemonImage } from '../common/pokemon/PokemonImage';
 import './PokemonCard.scss';
 import { PokemonCardData } from './PokemonCardData';
@@ -11,16 +11,11 @@ import { PokemonCardStats } from './PokemonCardStats';
 
 interface IAppProps {
   pokemon: IPokemon;
-  handleClick: (evolutionChain: ISpecies['evolution_chain']) => void;
 }
 
 const PokemonCard: FunctionComponent<IAppProps> = (props) => {
-
-  // const handleClick = () => {
-  //   props.handleClick(pokemon.species.evolution_chain);
-  // };
-
   const { pokemon } = props;
+
   return (
     <Col xs={12} lg={6}>
       <Link to={pokemon.name} className="pokemon-card">
@@ -29,6 +24,7 @@ const PokemonCard: FunctionComponent<IAppProps> = (props) => {
     </Col>
   );
 };
+
 export default PokemonCard;
 
 export const Pokemon: FunctionComponent<{ pokemon: IPokemon }> = ({ pokemon }) => (

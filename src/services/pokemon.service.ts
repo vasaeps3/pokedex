@@ -1,14 +1,14 @@
 import { asc, map } from 'type-comparator';
 
 import config from '../env';
-import { IChainLink, IEvolutionDetails, INamedAPIResource, IPokemon, ISpecies, IMoveLearnMethod } from '../interfaces/pokemon.interface';
+import { IChainLink, IEvolutionDetails, IPokemon, ISpecies, IMoveLearnMethod, IMove } from '../interfaces/pokemon.interface';
 import { ApiService, apiService as apiServiceInstance } from './api.service';
 import {
   LoadTranslationsService,
   loadTranslationsService as loadTranslationsServiceInstance,
 } from './load-translations.service';
-import { IGeneration } from '../interfaces/generation.interface';
-import { NamedAPIResourceList } from '../interfaces/base.interface';
+import { IGeneration, IVersionGroup } from '../interfaces/generation.interface';
+import { NamedAPIResourceList, INamedAPIResource, INamedLangAPIResource } from '../interfaces/base.interface';
 
 
 export class PokemonService {
@@ -19,10 +19,27 @@ export class PokemonService {
     private loadTranslationsService: LoadTranslationsService,
   ) { }
 
+  public async loadTranslateVersionGroups(generation: IGeneration) {
+    return Promise.all(generation.version_groups.map((v) => this.loadVersionGroups(v)));
+  }
+
+  public async loadVersionGroups(version: INamedAPIResource): Promise<void> {
+    const { data: versionGroup } = await this.apiService.get<IVersionGroup>(version.url, { useBaseURL: false });
+    const arrayNames = await Promise.all(versionGroup.versions.map((v) => this.getVersion(v.url)));
+    version.title = arrayNames.join('/');
+  }
+
+  public async getVersion(url: string): Promise<string> {
+    const { data: version } = await this.apiService.get<INamedLangAPIResource>(url, { useBaseURL: false });
+
+    const title = version.names.find((v) => v.language.name === this.language) || { name: '' };
+
+    return title.name;
+  }
+
   public async getGenerationList(): Promise<IGeneration[]> {
     const { data: generationRecource } = await this.apiService.get<NamedAPIResourceList<IGeneration>>(`/generation`);
     const generationList = await Promise.all(generationRecource.results.map((g) => this.getGenerationByName(g.name)));
-    // await Promise.all(generationList.map(g => this.loadVersionGroupsTranslate(g)));
 
     return generationList;
   }
@@ -31,6 +48,12 @@ export class PokemonService {
     const { data: moveLearnMethod } = await this.apiService.get<IMoveLearnMethod>(url, { useBaseURL: false });
 
     return moveLearnMethod;
+  }
+
+  public async getMove(url: string): Promise<IMove> {
+    const { data: move } = await this.apiService.get<IMove>(url, { useBaseURL: false });
+
+    return move;
   }
 
   // private loadVersionGroupsTranslate = (generation: IGeneration) => {

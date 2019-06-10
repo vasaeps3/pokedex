@@ -16,6 +16,10 @@ class PokemonEvolutionChain extends Component<IAppProps> {
 
   private treeContainer: any;
 
+  public componentDidMount() {
+    this.setState({ translate: { x: 0, y: 0 } });
+  }
+
   public componentDidUpdate(prevProps: any, prevState: any) {
     const dimensions = this.treeContainer.getBoundingClientRect();
     if (dimensions && dimensions.width !== 0 && prevState.translate.x === 0) {

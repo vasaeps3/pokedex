@@ -4,8 +4,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Header from './components/header/Header';
+import Loader from './components/loader/Loader';
 import PokedexPage from './components/pages/pokedex/PokedexPage';
 import PokemonDetails from './components/pages/pokemon-details/PokemonDetails';
+import PokemonEvolutionChainModal from './components/pokemon-evolution-chain/PokemonEvolutionChainModal';
 
 
 const App: FunctionComponent = () => {
@@ -13,6 +15,8 @@ const App: FunctionComponent = () => {
     <div className="app">
       <Header />
       <ToastContainer position="top-center" />
+      <PokemonEvolutionChainModal />
+      <Loader />
       <div className="page">
         <Switch>
           <Route exact={true} path="/" component={PokedexPage} />

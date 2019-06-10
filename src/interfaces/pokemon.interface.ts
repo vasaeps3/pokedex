@@ -1,8 +1,10 @@
+import { INamedAPIResource, INamedLangAPIResource, IName } from './base.interface';
 import { TypePokemon } from './type-pokemon.enum';
+
 
 export interface IPokemon extends INamedAPIResource {
   id: number;
-  types: ITypePokemonNew[];
+  types: ITypePokemon[];
   sprites: ISprites;
   species: ISpecies;
   abilities: IAbility[];
@@ -30,25 +32,17 @@ export interface IMoveLearnMethod extends INamedLangAPIResource {
   }>;
 }
 
+export interface IMove extends INamedLangAPIResource {
+  type: {
+    url: string;
+    name: TypePokemon;
+    title: string;
+  };
+}
+
 export interface IMovesLearntBy {
   leartMethod: INamedAPIResource;
   move: INamedAPIResource[];
-}
-
-export interface IName {
-  name: string;
-  language: INamedAPIResource;
-}
-
-export interface INamedAPIResource {
-  name: string;
-  title: string;
-  url: string;
-}
-
-export interface INamedLangAPIResource {
-  name: string;
-  names: IName[];
 }
 
 export interface IChainLink {
@@ -107,7 +101,7 @@ export interface ISprites {
   front_shiny_femaly: string;
 }
 
-export interface ITypePokemonNew {
+export interface ITypePokemon {
   slot: number;
   type: {
     url: string;

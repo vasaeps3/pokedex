@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import React, { Component } from 'react';
 
-import { INamedAPIResource } from '../../../interfaces/pokemon.interface';
+import { INamedAPIResource } from '../../../interfaces/base.interface';
 import { IPaginationState } from '../../../store/pagination/reducer';
 import Paginator from '../../common/paginator/Paginator';
 import PokemonList from './PokemonList';

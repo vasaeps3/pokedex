@@ -33,9 +33,12 @@ export default class PokemonGenerationList extends Component<IAppProps> {
     ));
 
     return (
-      <ButtonGroup className="generation-button-list" size="sm" >
-        {generationListEl}
-      </ButtonGroup>
+      <div className="mt-4">
+        <h5>In generations</h5>
+        <ButtonGroup className="generation-button-list" size="sm" >
+          {generationListEl}
+        </ButtonGroup>
+      </div>
     );
   }
 

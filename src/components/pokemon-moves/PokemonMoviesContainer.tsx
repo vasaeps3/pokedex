@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Spinner } from 'react-bootstrap';
 
 import { IGeneration } from '../../interfaces/generation.interface';
 import { IPokemonMove } from '../../interfaces/pokemon.interface';
@@ -13,6 +13,7 @@ interface IAppProps {
 }
 
 interface IAppState {
+  isLoading: boolean;
   generationList: IGeneration[];
   generation: IGeneration | null;
   activeGeneration: string | null;
@@ -21,6 +22,7 @@ interface IAppState {
 
 export default class PokemonMoviesContainer extends Component<IAppProps> {
   public state: IAppState = {
+    isLoading: true,
     generationList: [],
     activeGeneration: null,
     generation: null,
@@ -29,8 +31,10 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
 
   public async componentDidMount() {
     const generationList: IGeneration[] = await pokemonService.getGenerationList();
+    await Promise.all(generationList.map(g => pokemonService.loadTranslateVersionGroups(g)));
 
     this.setState({
+      isLoading: false,
       generationList,
     });
   }
@@ -38,13 +42,10 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
   public render() {
     const { generationList, activeGeneration } = this.state;
 
-    if (!generationList.length) {
-      return null;
-    }
-
-    return (
-      <Fragment>
-        <Container>
+    const content = this.state.isLoading ?
+      <Spinner animation="border" variant="dark" /> :
+      (
+        <Fragment>
           <Row>
             <Col>
               <PokemonGenerationList
@@ -55,12 +56,19 @@ export default class PokemonMoviesContainer extends Component<IAppProps> {
             </Col>
           </Row>
           <Row>
-            <Col>
+            <Col className="mt-4">
               <PokemonMoviesGroupList generation={this.state.generation} movesList={this.state.movesList} />
             </Col>
           </Row>
+        </Fragment>
+      );
+
+    return (
+      <Fragment>
+        <Container>
+          {content}
         </Container>
-      </Fragment>
+      </Fragment >
     );
   }
 

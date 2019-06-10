@@ -1,4 +1,5 @@
-import { INamedAPIResource, ITypeAPI } from '../interfaces/pokemon.interface';
+import { INamedAPIResource } from '../interfaces/base.interface';
+import { ITypeAPI } from '../interfaces/pokemon.interface';
 import { ApiService, apiService as apiServiceInstance } from './api.service';
 
 

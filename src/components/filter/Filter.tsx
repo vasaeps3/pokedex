@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SelectAsync from 'react-select';
 
-import { INamedAPIResource } from '../../interfaces/pokemon.interface';
+import { INamedAPIResource } from '../../interfaces/base.interface';
 import { loadTypes, setFilter } from '../../store/filter/actions';
 import { IPokemonFilterState } from '../../store/filter/reducer';
 

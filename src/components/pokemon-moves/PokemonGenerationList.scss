@@ -1,12 +1,29 @@
 .generation-button-list {
   &.btn-group {
     flex-wrap: wrap;
+    width: 100%;
     .active {
       color: #0056b3;
       text-decoration: underline;
     }
   }
 }
-.badge {
-  margin: 0 10px;
+.pokemon-move-list {
+  font-size: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  .move-card {
+    margin: 0 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.accordion {
+  .card-header {
+    .text-muted {
+      font-size: 0.75rem;
+    }
+  }
 }

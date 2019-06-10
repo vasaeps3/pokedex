@@ -4,6 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { IPokemon } from '../../../interfaces/pokemon.interface';
 import { pokemonService } from '../../../services/pokemon.service';
 import { Pokemon } from '../../pokemon-card/PokemonCard';
+import PokemonLinkChain from '../../pokemon-evolution-chain/PokemonLinkChain';
 import PokemonMoviesContainer from '../../pokemon-moves/PokemonMoviesContainer';
 
 
@@ -39,6 +40,7 @@ export default class PokemonDetails extends Component<IAppProps, IAppState> {
       <Fragment>
         <div className="pokemon-details">
           <Pokemon pokemon={pokemon} />
+          <PokemonLinkChain evolutionChain={pokemon.species.evolution_chain} />
         </div>
         <PokemonMoviesContainer moves={pokemon.moves} />
       </Fragment>

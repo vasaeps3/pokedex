@@ -1,7 +1,8 @@
 import { toast } from 'react-toastify';
 import { Dispatch } from 'redux';
 
-import { INamedAPIResource, ISpecies, IPokemon } from '../../interfaces/pokemon.interface';
+import { INamedAPIResource } from '../../interfaces/base.interface';
+import { IPokemon, ISpecies } from '../../interfaces/pokemon.interface';
 import { pokemonService } from '../../services/pokemon.service';
 
 

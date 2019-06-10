@@ -7,6 +7,7 @@ import { hideEvolutionChain } from '../../store/pokemon-preview/actions';
 import { IState } from '../../store/reducers';
 import PokemonEvolutionChain from './PokemonEvolutionChain';
 
+
 interface IAppProps {
   chain: IChainLink | null;
   hideEvolutionChain: () => void;

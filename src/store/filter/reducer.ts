@@ -1,6 +1,6 @@
 import { Action, Reducer } from 'redux';
 
-import { INamedAPIResource } from '../../interfaces/pokemon.interface';
+import { INamedAPIResource } from '../../interfaces/base.interface';
 import { SET_POKEMON_LIST_BY_FILTER, SET_TYPES_OPTION } from './actions';
 
 export interface IPokemonFilterState {

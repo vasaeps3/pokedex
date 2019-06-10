@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Container, Row } from 'react-bootstrap';
-import { INamedAPIResource, IPokemon, ISpecies } from '../../../interfaces/pokemon.interface';
+import { INamedAPIResource } from '../../../interfaces/base.interface';
+import { IPokemon } from '../../../interfaces/pokemon.interface';
 import { getPokemonsFull, showEvolutionChainNew } from '../../../store/pokemon-preview/actions';
 import { IPokemonAPIResourceState } from '../../../store/pokemon-preview/reducer';
 import PokemonCard from '../../pokemon-card/PokemonCard';
@@ -12,7 +13,6 @@ import './PokemonList.scss';
 
 export interface IAppProps {
   getPokemonsFull: (pokemonsShort: INamedAPIResource[]) => void;
-  showEvolutionChainNew: (evolutionChain: ISpecies['evolution_chain']) => void;
   pokemonsShort: INamedAPIResource[];
   pokemonsFull: IPokemon[];
 }
@@ -30,7 +30,6 @@ class PokemonList extends Component<IAppProps> {
       <PokemonCard
         key={pokemon.name}
         pokemon={pokemon}
-        handleClick={this.handleClick}
       />
     ));
 
@@ -41,10 +40,6 @@ class PokemonList extends Component<IAppProps> {
         </Row>
       </Container>
     );
-  }
-
-  private handleClick = (evolutionChain: ISpecies['evolution_chain']) => {
-    this.props.showEvolutionChainNew(evolutionChain);
   }
 }
 

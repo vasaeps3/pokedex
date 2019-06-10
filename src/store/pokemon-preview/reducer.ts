@@ -1,16 +1,18 @@
 import { Action, Reducer } from 'redux';
 
-import { IChainLink, INamedAPIResource, IPokemon } from '../../interfaces/pokemon.interface';
+import { INamedAPIResource } from '../../interfaces/base.interface';
+import { IChainLink, IPokemon } from '../../interfaces/pokemon.interface';
 import {
   HIDE_EVOLUTION_CHAIN,
   HIDE_LOADER,
+  POKEMON_DETAILS,
   SET_POKEMON_COUNT,
   SHOW_EVOLUTION_CHAIN,
   SHOW_LOADER,
   SHOW_POKEMONS,
   SHOW_POKEMONS_FULL,
-  POKEMON_DETAILS,
 } from './actions';
+
 
 export interface IPokemonAPIResourceState {
   pokemonsShort: INamedAPIResource[];

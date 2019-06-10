@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { Accordion, Button, Card, Spinner, Badge } from 'react-bootstrap';
+import React, { Component, FunctionComponent, memo } from 'react';
+import { Accordion, Button, Card, Spinner } from 'react-bootstrap';
 
 import config from '../../env';
-import { IMovesLearntBy } from '../../interfaces/pokemon.interface';
+import { IMove, IMovesLearntBy } from '../../interfaces/pokemon.interface';
 import { pokemonService } from '../../services/pokemon.service';
-import { loadTranslationsService } from '../../services/load-translations.service';
+import { PokemonType } from '../common/pokemon';
 
 
 interface IAppProps {
@@ -15,6 +15,7 @@ interface IAppState {
   isLoading: boolean;
   methodName: string | null;
   methodDesc: string | null;
+  movesLearntBy: IMove[];
 }
 
 export default class PokemonMovesLearntBy extends Component<IAppProps> {
@@ -23,6 +24,7 @@ export default class PokemonMovesLearntBy extends Component<IAppProps> {
     isLoading: true,
     methodName: null,
     methodDesc: null,
+    movesLearntBy: [],
   };
 
   public async componentDidMount() {
@@ -31,12 +33,13 @@ export default class PokemonMovesLearntBy extends Component<IAppProps> {
     const methodDesc = moveLearnMethod.descriptions
       .find((d) => d.language.name === config.language) || { description: '' };
 
-    await Promise.all(this.props.movesLearntBy.move.map((m) => loadTranslationsService.loadTranslateData(m)));
+    const movesLearntBy = await Promise.all(this.props.movesLearntBy.move.map((m) => pokemonService.getMove(m.url)));
 
     this.setState({
       isLoading: false,
       methodName: methodName.name,
       methodDesc: methodDesc.description,
+      movesLearntBy,
     });
   }
 
@@ -47,7 +50,7 @@ export default class PokemonMovesLearntBy extends Component<IAppProps> {
 
     const cardBody = this.state.isLoading ?
       <Spinner animation="border" variant="dark" size="sm" /> :
-      (this.props.movesLearntBy.move.map((m) => <Badge key={m.name} variant="info" >{m.title}</Badge>));
+      (<Moves moves={this.state.movesLearntBy} />);
 
     return (
       <Card>
@@ -55,6 +58,7 @@ export default class PokemonMovesLearntBy extends Component<IAppProps> {
           <Accordion.Toggle as={Button} variant="link" eventKey={this.props.movesLearntBy.leartMethod.name}>
             {cardHeader}
           </Accordion.Toggle>
+          <span className="text-muted">({this.state.methodDesc})</span>
         </Card.Header>
         <Accordion.Collapse eventKey={this.props.movesLearntBy.leartMethod.name}>
           <Card.Body>{cardBody}</Card.Body>
@@ -63,3 +67,24 @@ export default class PokemonMovesLearntBy extends Component<IAppProps> {
     );
   }
 }
+
+const Moves: FunctionComponent<{ moves: IMove[] }> = memo(({ moves }) => (
+  <div className="pokemon-move-list">
+    {moves.map((m) => <Move key={m.name} move={m} />)}
+  </div>
+));
+
+const Move: FunctionComponent<{ move: IMove }> = memo(({ move }) => {
+  const getMoveName = (moveData: IMove) => {
+    const moveName = moveData.names.find((n) => n.language.name === config.language) || { name: '' };
+
+    return moveName.name;
+  };
+
+  return (
+    <div className="move-card">
+      <div className="move-card-name">{getMoveName(move)}</div>
+      <div className="move-card-type"><PokemonType type={move.type} /></div>
+    </div>
+  );
+});

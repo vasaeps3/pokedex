@@ -41,7 +41,7 @@ export default class PokemonMoviesGroupList extends Component<IAppProps, IAppSta
 
     const movesList: JSX.Element[] = (
       generation.version_groups.map((g) => (
-        <Tab key={g.name} eventKey={g.name} title={g.name}>
+        <Tab key={g.name} eventKey={g.name} title={g.title}>
           <PokemonMovesList versionGroup={this.state.versionGroup} movesList={this.state.movesByVersion} />
         </Tab>
       ))

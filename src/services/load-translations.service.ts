@@ -1,5 +1,5 @@
 import config from '../env';
-import { INamedAPIResource, INamedLangAPIResource } from '../interfaces/pokemon.interface';
+import { INamedAPIResource, INamedLangAPIResource } from '../interfaces/base.interface';
 import { ApiService, apiService as apiServiceInstance } from './api.service';
 
 

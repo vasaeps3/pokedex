@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
 
-import { ITypePokemonNew } from '../../../interfaces/pokemon.interface';
+import { ITypePokemon } from '../../../interfaces/pokemon.interface';
 import { ColorTypePokemon } from '../../../interfaces/type-pokemon.enum';
 import './PokemonType.scss';
 
 
-export const PokemonType: FunctionComponent<{ type: ITypePokemonNew['type'] }> = ({ type }) => {
+export const PokemonType: FunctionComponent<{ type: ITypePokemon['type'] }> = ({ type }) => {
   const typeStyle = {
     backgroundColor: ColorTypePokemon[type.name],
   };
