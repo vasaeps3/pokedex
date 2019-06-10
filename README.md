@@ -1,6 +1,3 @@
-List of pokemons on the basis of React + Redux
-----
-
 ## Developing
 
 ### Clone repository
